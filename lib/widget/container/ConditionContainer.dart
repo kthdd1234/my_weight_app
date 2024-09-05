@@ -8,21 +8,29 @@ import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
+import 'package:my_weight_app/widget/bottomSheet/ConditionManageBottomSheet.dart';
 import 'package:my_weight_app/widget/view/TitleView.dart';
 
 class ConditionContainer extends StatelessWidget {
-  ConditionContainer({super.key, required this.onViewCondition});
+  ConditionContainer({
+    super.key,
+    required this.conditionList,
+    required this.onViewCondition,
+    required this.onSeletedCondition,
+  });
 
+  List<ConditionInfoClass> conditionList;
   Function(bool) onViewCondition;
+  Function(ConditionInfoClass) onSeletedCondition;
 
   @override
   Widget build(BuildContext context) {
-    onItem(String id) {
-      //
-    }
-
-    onRemove(String id) {
-      //
+    onConditionBottomSheet() {
+      showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => const ConditionManageBottomSheet(),
+      );
     }
 
     return CommonContainer(
@@ -34,21 +42,20 @@ class ConditionContainer extends StatelessWidget {
             alignment: WrapAlignment.center,
             spacing: 7,
             runSpacing: 7,
-            children: initConditionTagList
-                .map((tag) => ConditionTag(
-                      id: tag.id,
-                      text: tag.text,
-                      colorName: tag.colorName,
+            children: initConditionInfoList
+                .map((conditionInfo) => ConditionInfo(
+                      info: conditionInfo,
                       isOutline: true,
-                      isFilled: false,
-                      isEditMode: false,
-                      onRemove: onRemove,
-                      onItem: onItem,
+                      isFilled: conditionList.any(
+                        (info) => info.id == conditionInfo.id,
+                      ),
+                      onItem: onSeletedCondition,
                     ))
                 .toList(),
           ),
           CommonSpace(height: 10),
           CommonContainer(
+            onTap: onConditionBottomSheet,
             height: 50,
             isAddShadow: true,
             child: CommonText(text: '컨디션 관리', color: grey.s400),
@@ -59,68 +66,46 @@ class ConditionContainer extends StatelessWidget {
   }
 }
 
-class ConditionTag extends StatelessWidget {
-  ConditionTag({
+class ConditionInfo extends StatelessWidget {
+  ConditionInfo({
     super.key,
-    required this.id,
-    required this.text,
-    required this.colorName,
+    required this.info,
     required this.isFilled,
-    required this.isEditMode,
     required this.onItem,
-    required this.onRemove,
     this.isOutline,
   });
 
-  String id, text, colorName;
-  bool isFilled, isEditMode;
+  ConditionInfoClass info;
+  bool isFilled;
   bool? isOutline;
-  Function(String id) onItem, onRemove;
+  Function(ConditionInfoClass id) onItem;
 
   @override
   Widget build(BuildContext context) {
-    ColorClass color = getColorClass(colorName);
+    ColorClass color = getColorClass(info.colorName);
 
-    return Row(
-      mainAxisSize: isEditMode ? MainAxisSize.min : MainAxisSize.min,
-      children: [
-        isEditMode
-            ? Padding(
-                padding: const EdgeInsets.only(right: 2, left: 7),
-                child: InkWell(
-                  child: Icon(
-                    Icons.remove_circle,
-                    color: red.original,
-                    size: 18,
-                  ),
-                  onTap: () => onRemove(id),
+    return InkWell(
+      onTap: () => onItem(info),
+      child: Container(
+        padding: isOutline == true
+            ? const EdgeInsets.symmetric(vertical: 5, horizontal: 15)
+            : null,
+        decoration: isOutline == true
+            ? BoxDecoration(
+                color: isFilled ? color.s50 : null,
+                border: Border.all(
+                  width: 0.5,
+                  color: isFilled ? color.s50 : grey.s300,
                 ),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
               )
-            : const CommonNull(),
-        InkWell(
-          onTap: () => onItem(id),
-          child: Container(
-            padding: isOutline == true
-                ? const EdgeInsets.symmetric(vertical: 5, horizontal: 15)
-                : null,
-            decoration: isOutline == true
-                ? BoxDecoration(
-                    color: isFilled ? color.s50 : null,
-                    border: Border.all(
-                      width: 0.5,
-                      color: isFilled ? color.s50 : grey.s300,
-                    ),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  )
-                : null,
-            child: CommonText(
-              text: text,
-              fontSize: defaultFontSize - 2,
-              color: isFilled ? color.s300 : grey.s400,
-            ),
-          ),
-        )
-      ],
+            : null,
+        child: CommonText(
+          text: info.text,
+          fontSize: defaultFontSize - 2,
+          color: isFilled ? color.s300 : grey.s400,
+        ),
+      ),
     );
   }
 }

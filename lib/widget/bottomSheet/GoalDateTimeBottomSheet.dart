@@ -12,8 +12,8 @@ import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class GoalWeightDateTimeBottomSheet extends StatefulWidget {
-  GoalWeightDateTimeBottomSheet({
+class GoalDateTimeBottomSheet extends StatefulWidget {
+  GoalDateTimeBottomSheet({
     super.key,
     this.goalDateTime,
     required this.onDaySelected,
@@ -23,12 +23,11 @@ class GoalWeightDateTimeBottomSheet extends StatefulWidget {
   Function(DateTime) onDaySelected;
 
   @override
-  State<GoalWeightDateTimeBottomSheet> createState() =>
-      _GoalWeightDateTimeBottomSheetState();
+  State<GoalDateTimeBottomSheet> createState() =>
+      _GoalDateTimeBottomSheetState();
 }
 
-class _GoalWeightDateTimeBottomSheetState
-    extends State<GoalWeightDateTimeBottomSheet> {
+class _GoalDateTimeBottomSheetState extends State<GoalDateTimeBottomSheet> {
   DateTime titleDateTime = DateTime.now();
 
   markerBuilder(bool isLight, DateTime dateTime) {

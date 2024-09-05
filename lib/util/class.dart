@@ -86,9 +86,19 @@ class WeightInfoClass {
   double? value;
 }
 
-class ConditionTagClass {
-  ConditionTagClass(
-      {required this.id, required this.text, required this.colorName});
+class ConditionInfoClass {
+  ConditionInfoClass({
+    required this.id,
+    required this.text,
+    required this.colorName,
+  });
 
   String id, text, colorName;
+}
+
+class DiaryInfoClass {
+  DiaryInfoClass({required this.text, required this.textAlign});
+
+  String text;
+  TextAlign textAlign;
 }

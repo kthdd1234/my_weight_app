@@ -104,6 +104,13 @@ flutter:
     - assets/svgs/camera.svg
     - assets/svgs/gallery.svg
     - assets/svgs/trash.svg
+    - assets/svgs/align-left.svg
+    - assets/svgs/align-center.svg
+    - assets/svgs/align-right.svg
+    - assets/svgs/clock.svg
+    - assets/svgs/pencil.svg
+    - assets/svgs/trash.svg
+    - assets/svgs/calendar.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -41,6 +41,10 @@ class CommonModalSheet extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 15),
                       child: Row(
                         children: [
+                          isClose == true
+                              ? const Icon(Icons.close,
+                                  color: Colors.transparent)
+                              : const CommonNull(),
                           const Spacer(),
                           CommonText(text: title!, nameArgs: nameArgs),
                           const Spacer(),

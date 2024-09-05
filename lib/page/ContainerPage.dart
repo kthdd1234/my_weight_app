@@ -26,10 +26,10 @@ class ContainerPage extends StatefulWidget {
 }
 
 class _ContainerPageState extends State<ContainerPage> {
-  double? morningWeight;
-  double? nightWeight;
-
+  double? morningWeight, nightWeight;
   List<Uint8List> imageList = [];
+  List<ConditionInfoClass> conditionList = [];
+  DiaryInfoClass? diaryInfo;
 
   onViewWeight(bool isView) {
     //
@@ -123,12 +123,32 @@ class _ContainerPageState extends State<ContainerPage> {
     pop(context);
   }
 
+  onSeletedCondition(ConditionInfoClass selectionInfo) {
+    int index = conditionList.indexWhere((info) => info.id == selectionInfo.id);
+
+    setState(() {
+      index == -1
+          ? conditionList.add(selectionInfo)
+          : conditionList.removeAt(index);
+    });
+  }
+
   onCompletedWeight(String id, double weight) {
     setState(() {
       id == 'morning' ? morningWeight = weight : nightWeight = weight;
     });
 
     pop(context);
+  }
+
+  onCompletedDiary(DiaryInfoClass completedDiaryInfo) {
+    pop(context);
+    setState(() => diaryInfo = completedDiaryInfo);
+  }
+
+  onRemoveDiary() {
+    pop(context);
+    setState(() => diaryInfo = null);
   }
 
   onSaveRecord() {
@@ -160,14 +180,25 @@ class _ContainerPageState extends State<ContainerPage> {
                       ImageContainer(
                         imageList: imageList,
                         onCamera: (uint8List) => onCamera(uint8List, isPremium),
-                        onGallery: (uint8ListArray) =>
-                            onGallery(uint8ListArray, isPremium),
+                        onGallery: (uint8ListArray) => onGallery(
+                          uint8ListArray,
+                          isPremium,
+                        ),
                         onSlide: onSlide,
                         onRemove: onRemoveImage,
                         onView: onViewImage,
                       ),
-                      ConditionContainer(onViewCondition: onViewCondition),
-                      DiaryContainer(onView: onViewDiary),
+                      ConditionContainer(
+                        conditionList: conditionList,
+                        onViewCondition: onViewCondition,
+                        onSeletedCondition: onSeletedCondition,
+                      ),
+                      DiaryContainer(
+                        diaryInfo: diaryInfo,
+                        onCompleted: onCompletedDiary,
+                        onRemove: onRemoveDiary,
+                        onView: onViewDiary,
+                      ),
                     ],
                   ),
                 ),
