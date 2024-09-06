@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_weight_app/common/CommonBackground.dart';
@@ -19,7 +20,9 @@ import 'package:my_weight_app/widget/popup/AlertPopup.dart';
 import 'package:provider/provider.dart';
 
 class ContainerPage extends StatefulWidget {
-  const ContainerPage({super.key});
+  ContainerPage({super.key, required this.dateTime});
+
+  DateTime dateTime;
 
   @override
   State<ContainerPage> createState() => _ContainerPageState();
@@ -157,11 +160,14 @@ class _ContainerPageState extends State<ContainerPage> {
 
   @override
   Widget build(BuildContext context) {
+    String locale = context.locale.toString();
     bool isPremium = context.watch<PremiumProvider>().isPremium;
 
     return CommonBackground(
       child: CommonScaffold(
-        appBarInfo: AppBarInfoClass(title: '9월 3일 수요일'),
+        appBarInfo: AppBarInfoClass(
+          title: mdeFormatter(locale: locale, dateTime: widget.dateTime),
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(

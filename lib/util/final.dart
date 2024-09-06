@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:my_weight_app/common/CommonSegmented.dart';
 import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/enum.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -348,3 +349,20 @@ List<ConditionInfoClass> initConditionInfoList = [
   ConditionInfoClass(id: '설사', text: '설사'.tr(), colorName: '보라색'),
   ConditionInfoClass(id: '변비', text: '변비'.tr(), colorName: '보라색'),
 ];
+
+categorySegmented(SegmentedTypes segmented) {
+  Map<SegmentedTypes, Widget> segmentedData = {
+    SegmentedTypes.weight: onSegmentedWidget(
+      title: '체중',
+      type: SegmentedTypes.weight,
+      selected: segmented,
+    ),
+    SegmentedTypes.image: onSegmentedWidget(
+      title: '사진',
+      type: SegmentedTypes.image,
+      selected: segmented,
+    ),
+  };
+
+  return segmentedData;
+}

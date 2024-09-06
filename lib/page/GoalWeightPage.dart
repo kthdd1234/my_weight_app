@@ -94,7 +94,7 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
                       isLight: isLight,
                       name: 'calendar',
                       width: 20,
-                      color: grey.s400,
+                      color: goalDateTime != null ? Colors.black : grey.s400,
                     )
                   ],
                 ),
@@ -115,7 +115,7 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
                       isLight: isLight,
                       name: 'dir-right-bold',
                       width: 7,
-                      color: grey.s400,
+                      color: goalWeight != null ? Colors.black : grey.s400,
                     )
                   ],
                 ),

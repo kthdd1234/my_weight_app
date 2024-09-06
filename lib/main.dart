@@ -12,6 +12,7 @@ import 'package:my_weight_app/provider/ReloadProvider.dart';
 import 'package:my_weight_app/provider/SelectedDateTimeProvider.dart';
 import 'package:my_weight_app/provider/ThemeProvider.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:my_weight_app/provider/TitleDateTimeProvider.dart';
 import 'package:provider/provider.dart';
 
 // final purchasesConfiguration =
@@ -37,6 +38,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => PremiumProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => ReloadProvider()),
+        ChangeNotifierProvider(create: (context) => TitleDateTimeProvider()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('ko'), Locale('en'), Locale('ja')],

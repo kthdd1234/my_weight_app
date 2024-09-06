@@ -409,3 +409,11 @@ ColorClass getColorClass(String? name) {
 
   return colorList.firstWhere((info) => info.colorName == name);
 }
+
+isToday(DateTime dateTime) {
+  DateTime now = DateTime.now();
+
+  return now.year == dateTime.year &&
+      now.month == dateTime.month &&
+      now.day == dateTime.day;
+}

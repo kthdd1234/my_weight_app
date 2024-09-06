@@ -1,5 +1,15 @@
 enum SvgDirection { left, right }
 
-enum CalendarMaker { time }
-
 enum Themes { system, light, dark }
+
+enum SegmentedTypes {
+  week,
+  twoWeek,
+  month,
+  threeMonth,
+  sixMonth,
+  oneYear,
+  custom,
+  weight,
+  image,
+}
