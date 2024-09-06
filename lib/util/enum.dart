@@ -13,3 +13,7 @@ enum SegmentedTypes {
   weight,
   image,
 }
+
+enum JumpDayTypeEnum { none, subtract, add }
+
+enum GraphEnum { default_, custom, weight, steps }

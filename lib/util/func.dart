@@ -10,9 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:my_weight_app/common/CommonSegmented.dart';
 import 'package:my_weight_app/common/CommonText.dart';
 import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
+import 'package:my_weight_app/util/enum.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:purchases_flutter/models/customer_info_wrapper.dart';
@@ -416,4 +418,94 @@ isToday(DateTime dateTime) {
   return now.year == dateTime.year &&
       now.month == dateTime.month &&
       now.day == dateTime.day;
+}
+
+rangeSegmented(SegmentedTypes segmented) {
+  Map<SegmentedTypes, Widget> segmentedData = {
+    SegmentedTypes.week: onSegmentedWidget(
+      title: '일주일',
+      type: SegmentedTypes.week,
+      selected: segmented,
+    ),
+    SegmentedTypes.twoWeek: onSegmentedWidget(
+      title: '2주',
+      type: SegmentedTypes.twoWeek,
+      selected: segmented,
+    ),
+    SegmentedTypes.month: onSegmentedWidget(
+      title: '1개월',
+      type: SegmentedTypes.month,
+      selected: segmented,
+    ),
+    SegmentedTypes.threeMonth: onSegmentedWidget(
+      title: '3개월',
+      type: SegmentedTypes.threeMonth,
+      selected: segmented,
+    ),
+    SegmentedTypes.sixMonth: onSegmentedWidget(
+      title: '6개월',
+      type: SegmentedTypes.sixMonth,
+      selected: segmented,
+    ),
+    SegmentedTypes.oneYear: onSegmentedWidget(
+      title: '1년',
+      type: SegmentedTypes.oneYear,
+      selected: segmented,
+    ),
+  };
+
+  return segmentedData;
+}
+
+jumpDayDateTime({
+  required JumpDayTypeEnum type,
+  required DateTime dateTime,
+  required int days,
+}) {
+  Duration duration = Duration(days: days);
+
+  return JumpDayTypeEnum.subtract == type
+      ? dateTime.subtract(duration)
+      : dateTime.add(duration);
+}
+
+showSnackBar({
+  required BuildContext context,
+  required String text,
+  required String buttonName,
+  Function()? onPressed,
+  double? width,
+}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(text).tr(),
+          TextButton(
+            onPressed: onPressed,
+            child: Text(
+              buttonName,
+              style: const TextStyle(color: Colors.grey),
+            ).tr(),
+          )
+        ],
+      ),
+      width: width,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+    ),
+  );
+}
+
+daysBetween({
+  required DateTime startDateTime,
+  required DateTime endDateTime,
+}) {
+  return endDateTime.difference(startDateTime).inDays;
 }

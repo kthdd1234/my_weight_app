@@ -48,7 +48,7 @@ class _ImageActionBottomSheetState extends State<ImageActionBottomSheet> {
   }
 
   onGallery() async {
-    List<XFile> pickedXFileList = await picker.pickMultiImage(limit: 6);
+    List<XFile> pickedXFileList = await picker.pickMultiImage();
     List<Uint8List> pickedUint8ListList = [];
 
     for (var xFile in pickedXFileList) {

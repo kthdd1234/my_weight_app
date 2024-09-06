@@ -3,7 +3,7 @@ import 'package:my_weight_app/common/CommonSvg.dart';
 import 'package:my_weight_app/common/CommonTag.dart';
 import 'package:my_weight_app/page/GoalWeightPage.dart';
 import 'package:my_weight_app/page/GraphPage.dart';
-import 'package:my_weight_app/page/SettingPage.dart';
+import 'package:my_weight_app/page/MorePage.dart';
 import 'package:my_weight_app/util/func.dart';
 
 class HeaderBar extends StatefulWidget {
@@ -23,7 +23,7 @@ class _HeaderBarState extends State<HeaderBar> {
   }
 
   onSetting() {
-    navigator(context: context, page: const SettingPage());
+    navigator(context: context, page: const MorePage());
   }
 
   @override

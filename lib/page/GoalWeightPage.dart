@@ -1,12 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_weight_app/common/CommonBackground.dart';
 import 'package:my_weight_app/common/CommonButton.dart';
 import 'package:my_weight_app/common/CommonContainer.dart';
 import 'package:my_weight_app/common/CommonScaffold.dart';
 import 'package:my_weight_app/common/CommonSpace.dart';
-import 'package:my_weight_app/common/CommonSvg.dart';
 import 'package:my_weight_app/common/CommonText.dart';
 import 'package:my_weight_app/provider/ThemeProvider.dart';
 import 'package:my_weight_app/util/class.dart';
@@ -14,7 +12,6 @@ import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
 import 'package:my_weight_app/widget/bottomSheet/GoalDateTimeBottomSheet.dart';
-import 'package:my_weight_app/common/CommonTextFormField.dart';
 import 'package:my_weight_app/widget/bottomSheet/GoalWeightBottomSheet.dart';
 import 'package:provider/provider.dart';
 

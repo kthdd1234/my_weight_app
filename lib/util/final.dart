@@ -366,3 +366,20 @@ categorySegmented(SegmentedTypes segmented) {
 
   return segmentedData;
 }
+
+Map<SegmentedTypes, int> rangeInfo = {
+  SegmentedTypes.week: 6,
+  SegmentedTypes.twoWeek: 13,
+  SegmentedTypes.month: 29,
+  SegmentedTypes.threeMonth: 89,
+  SegmentedTypes.sixMonth: 179,
+  SegmentedTypes.oneYear: 364,
+};
+
+String eGraphDefault = GraphEnum.default_.toString();
+
+String eGraphCustom = GraphEnum.custom.toString();
+
+String eGraphWeight = GraphEnum.weight.toString();
+
+String eGraphSteps = GraphEnum.steps.toString();
