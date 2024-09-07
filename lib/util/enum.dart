@@ -17,3 +17,9 @@ enum SegmentedTypes {
 enum JumpDayTypeEnum { none, subtract, add }
 
 enum GraphEnum { default_, custom, weight, steps }
+
+enum CalendarMaker { weight, image }
+
+enum WeightUnit { kg, lb }
+
+enum CategoryOpenId { weight, image, diet, exercise, condition, diary }

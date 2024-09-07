@@ -6,6 +6,7 @@ import 'package:my_weight_app/common/CommonContainer.dart';
 import 'package:my_weight_app/common/CommonScaffold.dart';
 import 'package:my_weight_app/common/CommonSpace.dart';
 import 'package:my_weight_app/common/CommonText.dart';
+import 'package:my_weight_app/model/user_box/user_box.dart';
 import 'package:my_weight_app/provider/ThemeProvider.dart';
 import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
@@ -23,8 +24,22 @@ class GoalWeightPage extends StatefulWidget {
 }
 
 class _GoalWeightPageState extends State<GoalWeightPage> {
+  UserBox user = userRepository.user;
   DateTime? goalDateTime;
   double? goalWeight;
+
+  @override
+  void initState() {
+    GoalInfoClass goalInfo = GoalInfoClass(
+      goalDateTime: user.goalInfo['goalDateTime'],
+      goalWeight: user.goalInfo['goalWeight'],
+    );
+
+    goalDateTime = goalInfo.goalDateTime;
+    goalWeight = goalInfo.goalWeight;
+
+    super.initState();
+  }
 
   onShowGoalDateTime() {
     showModalBottomSheet(
@@ -54,14 +69,19 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
     );
   }
 
-  onCompleted() {
-    //
+  onCompleted() async {
+    user.goalInfo['goalDateTime'] = goalDateTime;
+    user.goalInfo['goalWeight'] = goalWeight;
+
+    await user.save();
+    pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
     String locale = context.locale.toString();
+    String weightUnit = user.weightUnit;
     bool isCompleted = goalDateTime != null || goalWeight != null;
 
     return CommonBackground(
@@ -103,7 +123,7 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
                   children: [
                     CommonText(
                       text: goalWeight != null
-                          ? '${goalWeight}kg'
+                          ? '$goalWeight$weightUnit'
                           : '목표 체중을 입력해주세요',
                       color: goalWeight != null ? Colors.black : grey.s400,
                     ),

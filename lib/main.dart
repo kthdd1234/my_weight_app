@@ -4,7 +4,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:my_weight_app/model/user_box/user_box.dart';
 import 'package:my_weight_app/page/HomePage.dart';
 import 'package:my_weight_app/page/StartPage.dart';
 import 'package:my_weight_app/provider/PremiumProvider.dart';
@@ -13,6 +15,9 @@ import 'package:my_weight_app/provider/SelectedDateTimeProvider.dart';
 import 'package:my_weight_app/provider/ThemeProvider.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:my_weight_app/provider/TitleDateTimeProvider.dart';
+import 'package:my_weight_app/repository/init_hive.dart';
+import 'package:my_weight_app/util/constant.dart';
+import 'package:my_weight_app/util/final.dart';
 import 'package:provider/provider.dart';
 
 // final purchasesConfiguration =
@@ -23,7 +28,7 @@ void main() async {
 
   await initializeDateFormatting();
   await EasyLocalization.ensureInitialized();
-  // await InitHive().initializeHive();
+  await InitHive().initializeHive();
   // await Purchases.configure(purchasesConfiguration);
   // await MobileAds.instance.initialize();
   // await Firebase.initializeApp(
@@ -58,9 +63,24 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  Box<UserBox>? userBox;
+
+  appTrackingTransparency() async {
+    try {
+      TrackingStatus status =
+          await AppTrackingTransparency.trackingAuthorizationStatus;
+
+      if (status == TrackingStatus.notDetermined) {
+        await AppTrackingTransparency.requestTrackingAuthorization();
+      }
+    } on PlatformException {
+      log('error');
+    }
+  }
+
   @override
   void initState() {
-    // userBox = Hive.box('userBox');
+    userBox = Hive.box('userBox');
 
     appTrackingTransparency();
 
@@ -100,26 +120,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     //     );
   }
 
-  appTrackingTransparency() async {
-    try {
-      TrackingStatus status =
-          await AppTrackingTransparency.trackingAuthorizationStatus;
-
-      if (status == TrackingStatus.notDetermined) {
-        await AppTrackingTransparency.requestTrackingAuthorization();
-      }
-    } on PlatformException {
-      log('error');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     context.watch<ReloadProvider>().isReload;
 
-    // UserBox? user = userBox?.get('userProfile');
-    String fontFamily = 'Omyu';
-    String route = 'home-page';
+    UserBox? user = userBox?.get('userProfile');
+    String fontFamily = user?.fontFamily ?? initFontFamily;
+    String initialRoute = userRepository.isUser ? 'home-page' : 'start-page';
 
     return MaterialApp(
       title: 'My Weight app',
@@ -134,7 +141,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-      initialRoute: route,
+      initialRoute: initialRoute,
       routes: {
         'home-page': (context) => const HomePage(),
         'start-page': (context) => const StartPage()

@@ -4,6 +4,7 @@ import 'package:my_weight_app/common/CommonContainer.dart';
 import 'package:my_weight_app/common/CommonNull.dart';
 import 'package:my_weight_app/common/CommonSpace.dart';
 import 'package:my_weight_app/common/CommonText.dart';
+import 'package:my_weight_app/model/condition_box/condition_box.dart';
 import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/final.dart';
@@ -19,12 +20,14 @@ class ConditionContainer extends StatelessWidget {
     required this.onSeletedCondition,
   });
 
-  List<ConditionInfoClass> conditionList;
-  Function(bool) onViewCondition;
-  Function(ConditionInfoClass) onSeletedCondition;
+  List<ConditionBox> conditionList;
+  Function() onViewCondition;
+  Function(ConditionBox) onSeletedCondition;
 
   @override
   Widget build(BuildContext context) {
+    bool isView = userRepository.user.categoryOpenIdList.contains(eConditionId);
+
     onConditionBottomSheet() {
       showModalBottomSheet(
         isScrollControlled: true,
@@ -37,29 +40,35 @@ class ConditionContainer extends StatelessWidget {
       outerPadding: const EdgeInsets.only(bottom: 10),
       child: Column(
         children: [
-          TitleView(title: '컨디션', isView: true, onView: onViewCondition),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 7,
-            runSpacing: 7,
-            children: initConditionInfoList
-                .map((conditionInfo) => ConditionInfo(
-                      info: conditionInfo,
-                      isOutline: true,
-                      isFilled: conditionList.any(
-                        (info) => info.id == conditionInfo.id,
-                      ),
-                      onItem: onSeletedCondition,
-                    ))
-                .toList(),
-          ),
-          CommonSpace(height: 10),
-          CommonContainer(
-            onTap: onConditionBottomSheet,
-            height: 50,
-            isAddShadow: true,
-            child: CommonText(text: '컨디션 관리', color: grey.s400),
-          )
+          TitleView(title: '컨디션', isView: isView, onView: onViewCondition),
+          isView
+              ? Column(
+                  children: [
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 7,
+                      runSpacing: 7,
+                      children: conditionRepository.conditionList
+                          .map((conditionInfo) => ConditionInfo(
+                                info: conditionInfo,
+                                isOutline: true,
+                                isFilled: conditionList.any(
+                                  (info) => info.id == conditionInfo.id,
+                                ),
+                                onItem: onSeletedCondition,
+                              ))
+                          .toList(),
+                    ),
+                    CommonSpace(height: 10),
+                    CommonContainer(
+                      onTap: onConditionBottomSheet,
+                      height: 50,
+                      isAddShadow: true,
+                      child: CommonText(text: '컨디션 관리', color: grey.s400),
+                    )
+                  ],
+                )
+              : const CommonNull()
         ],
       ),
     );
@@ -75,10 +84,10 @@ class ConditionInfo extends StatelessWidget {
     this.isOutline,
   });
 
-  ConditionInfoClass info;
+  ConditionBox info;
   bool isFilled;
   bool? isOutline;
-  Function(ConditionInfoClass id) onItem;
+  Function(ConditionBox id) onItem;
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +113,7 @@ class ConditionInfo extends StatelessWidget {
           text: info.text,
           fontSize: defaultFontSize - 2,
           color: isFilled ? color.s300 : grey.s400,
+          isNotTr: true,
         ),
       ),
     );

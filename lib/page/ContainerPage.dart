@@ -3,17 +3,24 @@ import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:my_weight_app/common/CommonBackground.dart';
 import 'package:my_weight_app/common/CommonButton.dart';
 import 'package:my_weight_app/common/CommonScaffold.dart';
+import 'package:my_weight_app/model/condition_box/condition_box.dart';
+import 'package:my_weight_app/model/reocrd_box/record_box.dart';
+import 'package:my_weight_app/model/user_box/user_box.dart';
 import 'package:my_weight_app/page/ImageSlidePage.dart';
 import 'package:my_weight_app/page/PremiumPage.dart';
 import 'package:my_weight_app/provider/PremiumProvider.dart';
 import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
+import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
 import 'package:my_weight_app/widget/container/ConditionContainer.dart';
 import 'package:my_weight_app/widget/container/DiaryContainer.dart';
+import 'package:my_weight_app/widget/container/DietContainer.dart';
+import 'package:my_weight_app/widget/container/ExerciseContainer.dart';
 import 'package:my_weight_app/widget/container/ImageContainer.dart';
 import 'package:my_weight_app/widget/container/WeightContainer.dart';
 import 'package:my_weight_app/widget/popup/AlertPopup.dart';
@@ -29,25 +36,89 @@ class ContainerPage extends StatefulWidget {
 }
 
 class _ContainerPageState extends State<ContainerPage> {
+  UserBox user = userRepository.user;
+
   double? morningWeight, nightWeight;
   List<Uint8List> imageList = [];
-  List<ConditionInfoClass> conditionList = [];
+  List<ConditionBox> conditionList = [];
   DiaryInfoClass? diaryInfo;
 
-  onViewWeight(bool isView) {
-    //
+  @override
+  void initState() {
+    int recordKey = dateTimeKey(widget.dateTime);
+    RecordBox? record = recordRepository.recordBox.get(recordKey);
+
+    if (record != null) {
+      morningWeight = record.morningWeight;
+      nightWeight = record.nightWeight;
+      imageList = record.imageList ?? [];
+      diaryInfo = DiaryInfoClass(
+        text: diaryInfo?.text ?? '',
+        textAlign: diaryInfo?.textAlign ?? TextAlign.left,
+      );
+    }
+
+    super.initState();
   }
 
-  onViewImage(bool isView) {
-    //
+  onViewWeight() async {
+    bool isView = user.categoryOpenIdList.contains(eWegihtId);
+
+    isView
+        ? user.categoryOpenIdList.remove(eWegihtId)
+        : user.categoryOpenIdList.add(eWegihtId);
+
+    await user.save();
   }
 
-  onViewCondition(bool isView) {
-    //
+  onViewImage() async {
+    bool isView = user.categoryOpenIdList.contains(eImageId);
+
+    isView
+        ? user.categoryOpenIdList.remove(eImageId)
+        : user.categoryOpenIdList.add(eImageId);
+
+    await user.save();
   }
 
-  onViewDiary(bool isView) {
-    //
+  onViewDiet() async {
+    bool isView = user.categoryOpenIdList.contains(eDietId);
+
+    isView
+        ? user.categoryOpenIdList.remove(eDietId)
+        : user.categoryOpenIdList.add(eDietId);
+
+    await user.save();
+  }
+
+  onViewExericse() async {
+    bool isView = user.categoryOpenIdList.contains(eExerciseId);
+
+    isView
+        ? user.categoryOpenIdList.remove(eExerciseId)
+        : user.categoryOpenIdList.add(eExerciseId);
+
+    await user.save();
+  }
+
+  onViewCondition() async {
+    bool isView = user.categoryOpenIdList.contains(eConditionId);
+
+    isView
+        ? user.categoryOpenIdList.remove(eConditionId)
+        : user.categoryOpenIdList.add(eConditionId);
+
+    await user.save();
+  }
+
+  onViewDiary() async {
+    bool isView = user.categoryOpenIdList.contains(eDiaryId);
+
+    isView
+        ? user.categoryOpenIdList.remove(eDiaryId)
+        : user.categoryOpenIdList.add(eDiaryId);
+
+    await user.save();
   }
 
   onPremiumImagePopup() {
@@ -126,7 +197,7 @@ class _ContainerPageState extends State<ContainerPage> {
     pop(context);
   }
 
-  onSeletedCondition(ConditionInfoClass selectionInfo) {
+  onSeletedCondition(ConditionBox selectionInfo) {
     int index = conditionList.indexWhere((info) => info.id == selectionInfo.id);
 
     setState(() {
@@ -154,71 +225,118 @@ class _ContainerPageState extends State<ContainerPage> {
     setState(() => diaryInfo = null);
   }
 
-  onSaveRecord() {
-    //
+  onSaveRecord() async {
+    int recordKey = dateTimeKey(widget.dateTime);
+    RecordBox? record = recordRepository.recordBox.get(recordKey);
+
+    List<Uint8List>? imageList_ = imageList.isNotEmpty ? imageList : null;
+    List<String>? conditionIdList_ = conditionList.isNotEmpty
+        ? conditionList.map((condition) => condition.id).toList()
+        : null;
+    Map<String, String>? diaryInfo_ = diaryInfo != null
+        ? {
+            'text': diaryInfo?.text ?? '',
+            'textAlign':
+                diaryInfo?.textAlign.toString() ?? TextAlign.left.toString()
+          }
+        : null;
+
+    if (record == null) {
+      recordRepository.addRecord(
+        RecordBox(
+          createDateTime: widget.dateTime,
+          morningWeight: morningWeight,
+          nightWeight: nightWeight,
+          imageList: imageList_,
+          conditionIdList: conditionIdList_,
+          diaryInfo: diaryInfo_,
+        ),
+      );
+    } else {
+      record.morningWeight = morningWeight;
+      record.nightWeight = nightWeight;
+      record.imageList = imageList_;
+      record.conditionIdList = conditionIdList_;
+      record.diaryInfo = diaryInfo_;
+
+      await record.save();
+    }
+
+    pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     String locale = context.locale.toString();
     bool isPremium = context.watch<PremiumProvider>().isPremium;
+    bool isSaveButton = morningWeight != null ||
+        nightWeight != null ||
+        imageList.isNotEmpty ||
+        conditionList.isNotEmpty ||
+        diaryInfo != null;
 
-    return CommonBackground(
-      child: CommonScaffold(
-        appBarInfo: AppBarInfoClass(
-          title: mdeFormatter(locale: locale, dateTime: widget.dateTime),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      WeightContainer(
-                        morningWeight: morningWeight,
-                        nightWeight: nightWeight,
-                        onViewWeight: onViewWeight,
-                        onCompleted: onCompletedWeight,
-                        onRemoveWeight: onRemoveWeight,
-                      ),
-                      ImageContainer(
-                        imageList: imageList,
-                        onCamera: (uint8List) => onCamera(uint8List, isPremium),
-                        onGallery: (uint8ListArray) => onGallery(
-                          uint8ListArray,
-                          isPremium,
+    return MultiValueListenableBuilder(
+      valueListenables: valueListenables,
+      builder: (context, values, child) => CommonBackground(
+        child: CommonScaffold(
+          appBarInfo: AppBarInfoClass(
+            title: mdeFormatter(locale: locale, dateTime: widget.dateTime),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        WeightContainer(
+                          morningWeight: morningWeight,
+                          nightWeight: nightWeight,
+                          onViewWeight: onViewWeight,
+                          onCompleted: onCompletedWeight,
+                          onRemoveWeight: onRemoveWeight,
                         ),
-                        onSlide: onSlide,
-                        onRemove: onRemoveImage,
-                        onView: onViewImage,
-                      ),
-                      ConditionContainer(
-                        conditionList: conditionList,
-                        onViewCondition: onViewCondition,
-                        onSeletedCondition: onSeletedCondition,
-                      ),
-                      DiaryContainer(
-                        diaryInfo: diaryInfo,
-                        onCompleted: onCompletedDiary,
-                        onRemove: onRemoveDiary,
-                        onView: onViewDiary,
-                      ),
-                    ],
+                        ImageContainer(
+                          imageList: imageList,
+                          onCamera: (uint8List) =>
+                              onCamera(uint8List, isPremium),
+                          onGallery: (uint8ListArray) => onGallery(
+                            uint8ListArray,
+                            isPremium,
+                          ),
+                          onSlide: onSlide,
+                          onRemove: onRemoveImage,
+                          onView: onViewImage,
+                        ),
+                        DietContainer(onView: onViewDiet),
+                        ExerciseContainer(onView: onViewExericse),
+                        ConditionContainer(
+                          conditionList: conditionList,
+                          onViewCondition: onViewCondition,
+                          onSeletedCondition: onSeletedCondition,
+                        ),
+                        DiaryContainer(
+                          diaryInfo: diaryInfo,
+                          onCompleted: onCompletedDiary,
+                          onRemove: onRemoveDiary,
+                          onView: onViewDiary,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              CommonButton(
-                outerPadding: const EdgeInsets.only(top: 10),
-                text: '저장',
-                textColor: Colors.white,
-                buttonColor: darkButtonColor,
-                verticalPadding: 12.5,
-                borderRadius: 7,
-                onTap: onSaveRecord,
-              )
-            ],
+                CommonButton(
+                  outerPadding: const EdgeInsets.only(top: 10),
+                  text: '저장',
+                  textColor: isSaveButton ? Colors.white : grey.s400,
+                  buttonColor: isSaveButton ? darkButtonColor : Colors.white,
+                  verticalPadding: 12.5,
+                  borderRadius: 7,
+                  onTap: onSaveRecord,
+                )
+              ],
+            ),
           ),
         ),
       ),

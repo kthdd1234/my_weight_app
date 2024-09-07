@@ -8,15 +8,15 @@ class UserBox extends HiveObject {
     required this.id,
     required this.createDateTime,
     required this.fontFamily,
-    required this.calendarMaker,
     required this.theme,
     required this.fontSize,
     required this.background,
     required this.weightUnit,
     required this.categoryOpenIdList,
+    required this.conditionOrderIdList,
+    required this.goalInfo,
     this.googleDriveInfo,
     this.alarmInfo,
-    this.goalInfo,
     this.passwords,
   });
 
@@ -27,34 +27,34 @@ class UserBox extends HiveObject {
   DateTime createDateTime;
 
   @HiveField(2)
-  String calendarMaker;
-
-  @HiveField(3)
   String theme;
 
-  @HiveField(4)
+  @HiveField(3)
   String fontFamily;
 
-  @HiveField(5)
+  @HiveField(4)
   double fontSize;
 
-  @HiveField(6)
+  @HiveField(5)
   int background;
 
-  @HiveField(7)
+  @HiveField(6)
   String weightUnit;
 
-  @HiveField(8)
+  @HiveField(7)
   List<String> categoryOpenIdList;
 
+  @HiveField(8)
+  List<String> conditionOrderIdList;
+
   @HiveField(9)
-  Map<String, dynamic>? googleDriveInfo;
+  Map<String, dynamic> goalInfo;
 
   @HiveField(10)
-  Map<String, dynamic>? alarmInfo;
+  Map<String, dynamic>? googleDriveInfo;
 
   @HiveField(11)
-  Map<String, dynamic>? goalInfo;
+  Map<String, dynamic>? alarmInfo;
 
   @HiveField(12)
   String? passwords;

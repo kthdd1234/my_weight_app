@@ -102,3 +102,10 @@ class DiaryInfoClass {
   String text;
   TextAlign textAlign;
 }
+
+class GoalInfoClass {
+  GoalInfoClass({this.goalDateTime, this.goalWeight});
+
+  DateTime? goalDateTime;
+  double? goalWeight;
+}

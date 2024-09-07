@@ -1,6 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_weight_app/common/CommonSegmented.dart';
+import 'package:my_weight_app/repository/category_repository.dart';
+import 'package:my_weight_app/repository/record_repository.dart';
+import 'package:my_weight_app/repository/user_repository.dart';
 import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/enum.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -187,14 +191,14 @@ const nextCalendarFormats = {
   CalendarFormat.month: CalendarFormat.week
 };
 
-// UserRepository userRepository = UserRepository();
-// RecordRepository recordRepository = RecordRepository();
-// CategoryRepository categoryRepository = CategoryRepository();
+UserRepository userRepository = UserRepository();
+RecordRepository recordRepository = RecordRepository();
+ConditionRepository conditionRepository = ConditionRepository();
 
 final valueListenables = [
-  // userRepository.userBox.listenable(),
-  // recordRepository.recordBox.listenable(),
-  // categoryRepository.categoryBox.listenable()
+  userRepository.userBox.listenable(),
+  recordRepository.recordBox.listenable(),
+  conditionRepository.conditionBox.listenable()
 ];
 
 final daysInfo = {
@@ -329,25 +333,25 @@ final backgroundClassList = [
 ];
 
 List<ConditionInfoClass> initConditionInfoList = [
-  ConditionInfoClass(id: '최상', text: '최상'.tr(), colorName: '파란색'),
-  ConditionInfoClass(id: '좋음', text: '좋음'.tr(), colorName: '남색'),
-  ConditionInfoClass(id: '보통', text: '보통'.tr(), colorName: '청록색'),
-  ConditionInfoClass(id: '나쁨', text: '나쁨'.tr(), colorName: '보라색'),
-  ConditionInfoClass(id: '최악', text: '최악'.tr(), colorName: '빨간색'),
-  ConditionInfoClass(id: '꿀잠', text: '꿀잠'.tr(), colorName: '파란색'),
-  ConditionInfoClass(id: '늦잠', text: '늦잠'.tr(), colorName: '파란색'),
-  ConditionInfoClass(id: '상쾌', text: '상쾌'.tr(), colorName: '파란색'),
-  ConditionInfoClass(id: '폭식', text: '폭식'.tr(), colorName: '파란색'),
-  ConditionInfoClass(id: '슬픔', text: '슬픔'.tr(), colorName: '파란색'),
-  ConditionInfoClass(id: '생리', text: '생리'.tr(), colorName: '파란색'),
-  ConditionInfoClass(id: '감기', text: '감기'.tr(), colorName: '빨간색'),
-  ConditionInfoClass(id: '스트레스', text: '스트레스'.tr(), colorName: '빨간색'),
-  ConditionInfoClass(id: '두통', text: '두통'.tr(), colorName: '빨간색'),
-  ConditionInfoClass(id: '살찜', text: '살찜'.tr(), colorName: '빨간색'),
-  ConditionInfoClass(id: '증량', text: '증량'.tr(), colorName: '보라색'),
-  ConditionInfoClass(id: '체함', text: '체함'.tr(), colorName: '보라색'),
-  ConditionInfoClass(id: '설사', text: '설사'.tr(), colorName: '보라색'),
-  ConditionInfoClass(id: '변비', text: '변비'.tr(), colorName: '보라색'),
+  ConditionInfoClass(id: '1', text: '최상', colorName: '파란색'),
+  ConditionInfoClass(id: '2', text: '좋음', colorName: '남색'),
+  ConditionInfoClass(id: '3', text: '보통', colorName: '청록색'),
+  ConditionInfoClass(id: '4', text: '나쁨', colorName: '보라색'),
+  ConditionInfoClass(id: '5', text: '최악', colorName: '빨간색'),
+  ConditionInfoClass(id: '6', text: '꿀잠', colorName: '파란색'),
+  ConditionInfoClass(id: '7', text: '늦잠', colorName: '파란색'),
+  ConditionInfoClass(id: '8', text: '상쾌', colorName: '파란색'),
+  ConditionInfoClass(id: '9', text: '폭식', colorName: '파란색'),
+  ConditionInfoClass(id: '10', text: '슬픔', colorName: '파란색'),
+  ConditionInfoClass(id: '11', text: '생리', colorName: '파란색'),
+  ConditionInfoClass(id: '12', text: '감기', colorName: '빨간색'),
+  ConditionInfoClass(id: '13', text: '스트레스', colorName: '빨간색'),
+  ConditionInfoClass(id: '14', text: '두통', colorName: '빨간색'),
+  ConditionInfoClass(id: '15', text: '살찜', colorName: '빨간색'),
+  ConditionInfoClass(id: '16', text: '증량', colorName: '보라색'),
+  ConditionInfoClass(id: '17', text: '체함', colorName: '보라색'),
+  ConditionInfoClass(id: '18', text: '설사', colorName: '보라색'),
+  ConditionInfoClass(id: '19', text: '변비', colorName: '보라색'),
 ];
 
 categorySegmented(SegmentedTypes segmented) {
@@ -383,3 +387,19 @@ String eGraphCustom = GraphEnum.custom.toString();
 String eGraphWeight = GraphEnum.weight.toString();
 
 String eGraphSteps = GraphEnum.steps.toString();
+
+String eWeightKg = WeightUnit.kg.toString();
+
+String eWeightlb = WeightUnit.lb.toString();
+
+String eWegihtId = CategoryOpenId.weight.toString();
+
+String eImageId = CategoryOpenId.image.toString();
+
+String eDietId = CategoryOpenId.diet.toString();
+
+String eExerciseId = CategoryOpenId.exercise.toString();
+
+String eConditionId = CategoryOpenId.condition.toString();
+
+String eDiaryId = CategoryOpenId.diary.toString();

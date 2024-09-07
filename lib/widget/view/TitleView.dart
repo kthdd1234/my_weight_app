@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:my_weight_app/common/CommonSvg.dart';
 import 'package:my_weight_app/common/CommonText.dart';
 import 'package:my_weight_app/util/constant.dart';
@@ -14,7 +15,7 @@ class TitleView extends StatelessWidget {
 
   String title;
   bool isView;
-  Function(bool isView) onView;
+  Function() onView;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +25,15 @@ class TitleView extends StatelessWidget {
         children: [
           CommonText(text: title, fontSize: defaultFontSize - 2),
           const Spacer(),
-          CommonSvg(
-            name: isView ? 'dir-down-bold' : 'dir-right',
-            onTap: () => onView(!isView),
-            width: 13,
-            color: grey.original,
-            padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-          )
+          InkWell(
+            onTap: onView,
+            child: Icon(
+              isView
+                  ? Icons.keyboard_arrow_down_rounded
+                  : Icons.keyboard_arrow_right_rounded,
+              color: grey.s400,
+            ),
+          ),
         ],
       ),
     );

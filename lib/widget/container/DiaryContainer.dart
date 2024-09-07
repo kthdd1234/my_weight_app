@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_weight_app/common/CommonContainer.dart';
+import 'package:my_weight_app/common/CommonNull.dart';
 import 'package:my_weight_app/common/CommonText.dart';
 import 'package:my_weight_app/page/DiaryPage.dart';
 import 'package:my_weight_app/util/class.dart';
@@ -20,8 +21,7 @@ class DiaryContainer extends StatefulWidget {
 
   DiaryInfoClass? diaryInfo;
   Function(DiaryInfoClass) onCompleted;
-  Function(bool isView) onView;
-  Function() onRemove;
+  Function() onView, onRemove;
 
   @override
   State<DiaryContainer> createState() => _DiaryContainerState();
@@ -53,28 +53,32 @@ class _DiaryContainerState extends State<DiaryContainer> {
 
   @override
   Widget build(BuildContext context) {
+    bool isView = userRepository.user.categoryOpenIdList.contains(eDiaryId);
+
     return CommonContainer(
       outerPadding: const EdgeInsets.only(bottom: 10),
       child: Column(
         crossAxisAlignment: crossAxisAlignmentInfo[
             widget.diaryInfo?.textAlign ?? TextAlign.left]!,
         children: [
-          TitleView(title: '일기', isView: true, onView: widget.onView),
-          widget.diaryInfo != null
-              ? InkWell(
-                  onTap: onDiary,
-                  child: CommonText(
-                    text: widget.diaryInfo!.text,
-                    textAlign: widget.diaryInfo!.textAlign,
-                    fontSize: defaultFontSize - 2,
-                  ),
-                )
-              : CommonContainer(
-                  onTap: onNav,
-                  height: 50,
-                  isAddShadow: true,
-                  child: CommonText(text: '일기 작성', color: grey.s400),
-                )
+          TitleView(title: '일기', isView: isView, onView: widget.onView),
+          isView
+              ? widget.diaryInfo != null
+                  ? InkWell(
+                      onTap: onDiary,
+                      child: CommonText(
+                        text: widget.diaryInfo!.text,
+                        textAlign: widget.diaryInfo!.textAlign,
+                        fontSize: defaultFontSize - 2,
+                      ),
+                    )
+                  : CommonContainer(
+                      onTap: onNav,
+                      height: 50,
+                      isAddShadow: true,
+                      child: CommonText(text: '일기 작성', color: grey.s400),
+                    )
+              : const CommonNull()
         ],
       ),
     );

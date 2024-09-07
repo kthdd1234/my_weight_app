@@ -1,19 +1,24 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:my_weight_app/common/CommonText.dart';
+import 'package:my_weight_app/util/constant.dart';
+import 'package:my_weight_app/util/final.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CommonImage extends StatelessWidget {
   CommonImage({
     super.key,
-    required this.uint8List,
     required this.height,
     required this.onTap,
+    this.text,
+    this.uint8List,
     this.fit,
     this.width,
   });
 
-  Uint8List uint8List;
+  Uint8List? uint8List;
+  String? text;
   BoxFit? fit;
   double? width;
   double height;
@@ -21,12 +26,26 @@ class CommonImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (uint8List == null) {
+      return Container(
+        decoration: BoxDecoration(
+          color: ember.s50,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        width: height,
+        height: height,
+        child: Center(
+          child: CommonText(text: text ?? '', fontSize: defaultFontSize + 10),
+        ),
+      );
+    }
+
     return InkWell(
-      onTap: () => onTap(uint8List),
+      onTap: () => onTap(uint8List!),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: Image.memory(
-          uint8List,
+          uint8List!,
           fit: fit ?? BoxFit.cover,
           width: width ?? double.infinity,
           height: height,

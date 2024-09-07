@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:my_weight_app/common/CommonContainer.dart';
+import 'package:my_weight_app/common/CommonNull.dart';
 import 'package:my_weight_app/common/CommonText.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/widget/bottomSheet/ImageActionBottomSheet.dart';
@@ -20,13 +21,15 @@ class ImageContainer extends StatelessWidget {
   });
 
   List<Uint8List> imageList;
-  Function(bool) onView;
+  Function() onView;
   Function(Uint8List uint8List) onCamera;
   Function(List<Uint8List>) onGallery;
   Function(Uint8List uint8List) onSlide, onRemove;
 
   @override
   Widget build(BuildContext context) {
+    bool isView = userRepository.user.categoryOpenIdList.contains(eImageId);
+
     onAddImage() {
       showModalBottomSheet(
         context: context,
@@ -54,15 +57,28 @@ class ImageContainer extends StatelessWidget {
       outerPadding: const EdgeInsets.only(bottom: 10),
       child: Column(
         children: [
-          TitleView(title: '사진', isView: true, onView: onView),
-          ImageView(uint8ListList: imageList, onImage: onSelectionImage),
-          CommonContainer(
-            isAddShadow: true,
-            outerPadding: EdgeInsets.only(top: imageList.isEmpty ? 0 : 10),
-            onTap: onAddImage,
-            height: imageList.isEmpty ? 200 : 50,
-            child: Center(child: CommonText(text: '+ 사진 추가', color: grey.s400)),
-          )
+          TitleView(title: '눈바디', isView: isView, onView: onView),
+          isView
+              ? Column(
+                  children: [
+                    ImageView(
+                      uint8ListList: imageList,
+                      onImage: onSelectionImage,
+                    ),
+                    CommonContainer(
+                      isAddShadow: true,
+                      outerPadding: EdgeInsets.only(
+                        top: imageList.isEmpty ? 0 : 10,
+                      ),
+                      onTap: onAddImage,
+                      height: imageList.isEmpty ? 200 : 50,
+                      child: Center(
+                        child: CommonText(text: '+ 사진 추가', color: grey.s400),
+                      ),
+                    )
+                  ],
+                )
+              : const CommonNull(),
         ],
       ),
     );
