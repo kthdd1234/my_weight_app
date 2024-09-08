@@ -9,6 +9,7 @@ import 'package:my_weight_app/common/CommonModalSheet.dart';
 import 'package:my_weight_app/common/CommonSpace.dart';
 import 'package:my_weight_app/common/CommonTextFormField.dart';
 import 'package:my_weight_app/model/condition_box/condition_box.dart';
+import 'package:my_weight_app/model/user_box/user_box.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
@@ -49,6 +50,8 @@ class _ConditionSettingBottomSheetState
   }
 
   onCompleted() async {
+    UserBox user = userRepository.user;
+
     if (widget.id == null) {
       String newId = uuid();
 
@@ -60,6 +63,9 @@ class _ConditionSettingBottomSheetState
           text: controller.text,
         ),
       );
+
+      user.conditionOrderIdList.insert(0, newId);
+      await user.save();
     } else {
       ConditionBox? conditionBox =
           conditionRepository.conditionBox.get(widget.id);

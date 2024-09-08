@@ -283,7 +283,7 @@ class _ContainerPageState extends State<ContainerPage> {
             title: mdeFormatter(locale: locale, dateTime: widget.dateTime),
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Column(
               children: [
                 Expanded(
@@ -309,8 +309,8 @@ class _ContainerPageState extends State<ContainerPage> {
                           onRemove: onRemoveImage,
                           onView: onViewImage,
                         ),
-                        DietContainer(onView: onViewDiet),
-                        ExerciseContainer(onView: onViewExericse),
+                        // DietContainer(onView: onViewDiet),
+                        // ExerciseContainer(onView: onViewExericse),
                         ConditionContainer(
                           conditionList: conditionList,
                           onViewCondition: onViewCondition,

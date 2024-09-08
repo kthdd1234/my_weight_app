@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_weight_app/common/CommonText.dart';
 import 'package:my_weight_app/provider/ThemeProvider.dart';
+import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
+import 'package:my_weight_app/util/final.dart';
+import 'package:my_weight_app/util/func.dart';
 import 'package:provider/provider.dart';
 
 class CommonTag extends StatelessWidget {
@@ -10,6 +15,8 @@ class CommonTag extends StatelessWidget {
     super.key,
     required this.text,
     required this.onTap,
+    this.isColor,
+    this.colorName,
     this.innerPadding,
     this.isBold,
     this.fontSize,
@@ -19,10 +26,10 @@ class CommonTag extends StatelessWidget {
   });
 
   String text;
-  bool? isBold, isNotTr, isSelection;
+  String? colorName;
+  bool? isBold, isNotTr, isSelection, isColor;
   double? fontSize, vertical;
   EdgeInsets? innerPadding;
-
   Function() onTap;
 
   @override
@@ -36,13 +43,20 @@ class CommonTag extends StatelessWidget {
             ? Colors.white
             : darkNotSelectedBgColor;
 
-    Color color = isLight
+    Color textColor = isLight
         ? isSelection == true
             ? Colors.white
             : Colors.black
         : isSelection == true
             ? Colors.black
             : Colors.white;
+
+    // if (isColor == true) {
+    //   ColorClass colorInfo = getColorClass(colorName);
+
+    //   bgColor = isSelection == true ? colorInfo.s50 : Colors.white;
+    //   textColor = isSelection == true ? colorInfo.original : grey.original;
+    // }
 
     return Padding(
       padding: innerPadding ?? const EdgeInsets.all(0),
@@ -58,7 +72,7 @@ class CommonTag extends StatelessWidget {
           child: CommonText(
             text: text,
             fontSize: fontSize,
-            color: color,
+            color: textColor,
             isNotTr: isNotTr,
           ),
         ),

@@ -45,13 +45,13 @@ class _HeaderBarState extends State<HeaderBar> {
         );
         bool isGoalDateTime = goalInfo.goalDateTime != null;
         bool isGoalWeight = goalInfo.goalWeight != null;
-        bool isGoal = isGoalDateTime && isGoalWeight;
+        bool isGoal = isGoalDateTime || isGoalWeight;
 
         String weightUnit = user.weightUnit;
 
         String goalDateTimeText = isGoalDateTime
             ? ymdFullFormatter(locale: locale, dateTime: goalInfo.goalDateTime!)
-            : '0000년 00월 00일';
+            : '-년 -월 -일';
         String goalWeightText =
             '${isGoalWeight ? goalInfo.goalWeight : '-'}$weightUnit';
 

@@ -12,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:my_weight_app/common/CommonSegmented.dart';
 import 'package:my_weight_app/common/CommonText.dart';
+import 'package:my_weight_app/model/condition_box/condition_box.dart';
 import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/enum.dart';
@@ -508,4 +509,18 @@ daysBetween({
   required DateTime endDateTime,
 }) {
   return endDateTime.difference(startDateTime).inDays;
+}
+
+List<ConditionBox> getConditionList() {
+  List<String> orderList = userRepository.user.conditionOrderIdList;
+  List<ConditionBox> conditionList = conditionRepository.conditionList;
+
+  conditionList.sort((a, b) {
+    int index1 = orderList.indexOf(a.id);
+    int index2 = orderList.indexOf(b.id);
+
+    return index1.compareTo(index2);
+  });
+
+  return conditionList;
 }

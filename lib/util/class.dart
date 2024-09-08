@@ -109,3 +109,16 @@ class GoalInfoClass {
   DateTime? goalDateTime;
   double? goalWeight;
 }
+
+class DietExerciseInfoClass {}
+
+class DietExerciseTypeClass {
+  DietExerciseTypeClass({
+    required this.id,
+    required this.name,
+    required this.colorName,
+    required this.emoji,
+  });
+
+  String id, name, colorName, emoji;
+}

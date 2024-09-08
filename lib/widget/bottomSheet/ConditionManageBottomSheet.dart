@@ -7,6 +7,7 @@ import 'package:my_weight_app/common/CommonDivider.dart';
 import 'package:my_weight_app/common/CommonModalSheet.dart';
 import 'package:my_weight_app/common/CommonSpace.dart';
 import 'package:my_weight_app/model/condition_box/condition_box.dart';
+import 'package:my_weight_app/model/user_box/user_box.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
 import 'package:my_weight_app/widget/bottomSheet/ConditionSettingBottomSheet.dart';
@@ -23,6 +24,8 @@ class ConditionManageBottomSheet extends StatefulWidget {
 
 class _ConditionManageBottomSheetState
     extends State<ConditionManageBottomSheet> {
+  UserBox user = userRepository.user;
+
   onItem(String? id) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -54,6 +57,9 @@ class _ConditionManageBottomSheetState
           height: 170,
           onTap: () async {
             await conditionRepository.conditionBox.delete(id);
+            user.conditionOrderIdList.remove(id);
+
+            await user.save();
             pop(context);
           },
         ),
@@ -62,50 +68,59 @@ class _ConditionManageBottomSheetState
   }
 
   onReorder(int oldIndex, int newIndex) async {
-    //
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+
+    String orderId = user.conditionOrderIdList.removeAt(oldIndex);
+    user.conditionOrderIdList.insert(newIndex, orderId);
+
+    await userRepository.user.save();
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiValueListenableBuilder(
-      valueListenables: valueListenables,
-      builder: (context, values, child) => CommonModalSheet(
-        title: '컨디션 관리',
-        isClose: true,
-        height: 520,
-        child: Column(
-          children: [
-            Expanded(
-              child: ReorderableListView.builder(
-                physics: const ClampingScrollPhysics(),
-                itemCount: conditionRepository.conditionList.length,
-                itemBuilder: (_, index) {
-                  ConditionBox conditionInfo =
-                      conditionRepository.conditionList[index];
+        valueListenables: valueListenables,
+        builder: (context, values, child) {
+          List<ConditionBox> conditionList = getConditionList();
 
-                  return ConditionItem(
-                    key: Key(conditionInfo.id),
-                    conditionInfo: conditionInfo,
-                    onRemove: onRemove,
-                    onEdit: (id) => onItem(id),
-                  );
-                },
-                onReorder: onReorder,
-              ),
+          return CommonModalSheet(
+            title: '컨디션 관리',
+            isClose: true,
+            height: 520,
+            child: Column(
+              children: [
+                Expanded(
+                  child: ReorderableListView.builder(
+                    physics: const ClampingScrollPhysics(),
+                    itemCount: conditionList.length,
+                    itemBuilder: (_, index) {
+                      ConditionBox conditionInfo = conditionList[index];
+
+                      return ConditionItem(
+                        key: Key(conditionInfo.id),
+                        conditionInfo: conditionInfo,
+                        onRemove: onRemove,
+                        onEdit: (id) => onItem(id),
+                      );
+                    },
+                    onReorder: onReorder,
+                  ),
+                ),
+                CommonButton(
+                  outerPadding: const EdgeInsets.only(top: 15),
+                  text: '+ 컨디션 추가',
+                  textColor: Colors.black,
+                  buttonColor: Colors.white,
+                  verticalPadding: 10,
+                  borderRadius: 7,
+                  onTap: () => onItem(null),
+                )
+              ],
             ),
-            CommonButton(
-              outerPadding: const EdgeInsets.only(top: 15),
-              text: '+ 컨디션 추가',
-              textColor: Colors.black,
-              buttonColor: Colors.white,
-              verticalPadding: 10,
-              borderRadius: 7,
-              onTap: () => onItem(null),
-            )
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }
 

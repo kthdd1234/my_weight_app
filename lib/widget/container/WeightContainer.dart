@@ -6,6 +6,7 @@ import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/widget/bottomSheet/WeightBottomSheet.dart';
+import 'package:my_weight_app/widget/view/RemoveButtonView.dart';
 import 'package:my_weight_app/widget/view/TitleView.dart';
 
 class WeightContainer extends StatefulWidget {
@@ -67,7 +68,7 @@ class _WeightContainerState extends State<WeightContainer> {
                           ? info.id == 'morning'
                               ? blue.original
                               : red.s400
-                          : grey.s400;
+                          : grey.original;
                       double bottomPadding = info.id == 'morning' ? 10 : 0;
 
                       return CommonContainer(
@@ -82,20 +83,14 @@ class _WeightContainerState extends State<WeightContainer> {
                             ? Row(
                                 children: [
                                   CommonText(
-                                      text: '${info.value}kg', color: color),
+                                    text: '${info.value}kg',
+                                    color: color,
+                                  ),
                                   const Spacer(),
-                                  InkWell(
-                                    onTap: () => widget.onRemoveWeight(info.id),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(3, 3, 0, 3),
-                                      child: Icon(
-                                        Icons.highlight_remove_rounded,
-                                        color: grey.s400,
-                                        size: defaultFontSize,
-                                      ),
-                                    ),
-                                  )
+                                  RemoveButtonView(
+                                    id: info.id,
+                                    onRemove: widget.onRemoveWeight,
+                                  ),
                                 ],
                               )
                             : CommonText(text: '${info.name} 기록', color: color),

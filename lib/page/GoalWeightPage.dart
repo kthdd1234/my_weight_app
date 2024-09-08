@@ -14,6 +14,7 @@ import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
 import 'package:my_weight_app/widget/bottomSheet/GoalDateTimeBottomSheet.dart';
 import 'package:my_weight_app/widget/bottomSheet/GoalWeightBottomSheet.dart';
+import 'package:my_weight_app/widget/view/RemoveButtonView.dart';
 import 'package:provider/provider.dart';
 
 class GoalWeightPage extends StatefulWidget {
@@ -69,6 +70,14 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
     );
   }
 
+  onRemoveDateTime(_) {
+    setState(() => goalDateTime = null);
+  }
+
+  onRemoveGoalWeight(_) {
+    setState(() => goalWeight = null);
+  }
+
   onCompleted() async {
     user.goalInfo['goalDateTime'] = goalDateTime;
     user.goalInfo['goalWeight'] = goalWeight;
@@ -88,7 +97,7 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
       child: CommonScaffold(
         appBarInfo: AppBarInfoClass(title: '목표 설정'),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -107,12 +116,14 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
                       color: goalDateTime != null ? Colors.black : grey.s400,
                     ),
                     const Spacer(),
-                    svgAsset(
-                      isLight: isLight,
-                      name: 'calendar',
-                      width: 20,
-                      color: goalDateTime != null ? Colors.black : grey.s400,
-                    )
+                    goalDateTime != null
+                        ? RemoveButtonView(id: '_', onRemove: onRemoveDateTime)
+                        : svgAsset(
+                            isLight: isLight,
+                            name: 'calendar',
+                            width: 20,
+                            color: grey.s400,
+                          ),
                   ],
                 ),
               ),
@@ -128,12 +139,18 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
                       color: goalWeight != null ? Colors.black : grey.s400,
                     ),
                     const Spacer(),
-                    svgAsset(
-                      isLight: isLight,
-                      name: 'dir-right-bold',
-                      width: 7,
-                      color: goalWeight != null ? Colors.black : grey.s400,
-                    )
+                    goalWeight != null
+                        ? RemoveButtonView(
+                            id: '_',
+                            onRemove: onRemoveGoalWeight,
+                          )
+                        : svgAsset(
+                            isLight: isLight,
+                            name: 'dir-right-bold',
+                            width: 7,
+                            color:
+                                goalWeight != null ? Colors.black : grey.s400,
+                          )
                   ],
                 ),
               ),
@@ -145,7 +162,7 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
                 buttonColor: isCompleted ? darkButtonColor : Colors.white,
                 verticalPadding: 12.5,
                 borderRadius: 7,
-                onTap: onCompleted,
+                onTap: isCompleted ? onCompleted : () {},
               )
             ],
           ),

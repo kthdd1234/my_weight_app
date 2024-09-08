@@ -73,7 +73,10 @@ class ImageContainer extends StatelessWidget {
                       onTap: onAddImage,
                       height: imageList.isEmpty ? 200 : 50,
                       child: Center(
-                        child: CommonText(text: '+ 사진 추가', color: grey.s400),
+                        child: CommonText(
+                          text: '+ 사진 추가',
+                          color: grey.original,
+                        ),
                       ),
                     )
                   ],

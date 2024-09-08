@@ -81,7 +81,7 @@ class _DiaryPageState extends State<DiaryPage> {
                     vertical: 5,
                   ),
                   child: CommonTextFormField(
-                    hintText: '글을 입력해주세요',
+                    hintText: '오늘 하루 어땠는지 기록해보아요 :D',
                     isContainer: false,
                     controller: controller,
                     textAlign: textAlign,

@@ -362,7 +362,7 @@ categorySegmented(SegmentedTypes segmented) {
       selected: segmented,
     ),
     SegmentedTypes.image: onSegmentedWidget(
-      title: '사진',
+      title: '눈바디',
       type: SegmentedTypes.image,
       selected: segmented,
     ),
@@ -403,3 +403,51 @@ String eExerciseId = CategoryOpenId.exercise.toString();
 String eConditionId = CategoryOpenId.condition.toString();
 
 String eDiaryId = CategoryOpenId.diary.toString();
+
+List<DietExerciseTypeClass> dietTypeClassList = [
+  DietExerciseTypeClass(
+    id: 'morning',
+    name: '아침',
+    colorName: '주황색',
+    emoji: '☀️',
+  ),
+  DietExerciseTypeClass(
+    id: 'lunch',
+    name: '점심',
+    colorName: '파란색',
+    emoji: '☁️',
+  ),
+  DietExerciseTypeClass(
+    id: 'night',
+    name: '저녁',
+    colorName: '보라색',
+    emoji: '🌙',
+  ),
+  DietExerciseTypeClass(
+    id: 'snack',
+    name: '간식',
+    colorName: '남색',
+    emoji: '🍿',
+  ),
+];
+
+List<DietExerciseTypeClass> exerciseTypeClassList = [
+  DietExerciseTypeClass(
+    id: 'cardio',
+    name: '유산소',
+    colorName: '군청색',
+    emoji: '🌳',
+  ),
+  DietExerciseTypeClass(
+    id: 'muscle',
+    name: '근력',
+    colorName: '청회색',
+    emoji: '🔥',
+  ),
+  DietExerciseTypeClass(
+    id: 'cardio',
+    name: '스트레칭',
+    colorName: '군청색',
+    emoji: '💪',
+  ),
+];

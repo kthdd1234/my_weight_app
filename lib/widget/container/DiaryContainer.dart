@@ -76,7 +76,7 @@ class _DiaryContainerState extends State<DiaryContainer> {
                       onTap: onNav,
                       height: 50,
                       isAddShadow: true,
-                      child: CommonText(text: '일기 작성', color: grey.s400),
+                      child: CommonText(text: '일기 작성', color: grey.original),
                     )
               : const CommonNull()
         ],

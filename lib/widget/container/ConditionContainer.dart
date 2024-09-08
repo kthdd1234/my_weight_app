@@ -48,7 +48,7 @@ class ConditionContainer extends StatelessWidget {
                       alignment: WrapAlignment.center,
                       spacing: 7,
                       runSpacing: 7,
-                      children: conditionRepository.conditionList
+                      children: getConditionList()
                           .map((conditionInfo) => ConditionInfo(
                                 info: conditionInfo,
                                 isOutline: true,
@@ -59,12 +59,12 @@ class ConditionContainer extends StatelessWidget {
                               ))
                           .toList(),
                     ),
-                    CommonSpace(height: 10),
+                    CommonSpace(height: 15),
                     CommonContainer(
                       onTap: onConditionBottomSheet,
                       height: 50,
                       isAddShadow: true,
-                      child: CommonText(text: '컨디션 관리', color: grey.s400),
+                      child: CommonText(text: '컨디션 관리', color: grey.original),
                     )
                   ],
                 )
