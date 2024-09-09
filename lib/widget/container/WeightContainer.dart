@@ -58,7 +58,7 @@ class _WeightContainerState extends State<WeightContainer> {
       outerPadding: const EdgeInsets.only(bottom: 10),
       child: Column(
         children: [
-          TitleView(title: '체중', isView: isView, onView: widget.onViewWeight),
+          TitleView(title: '몸무게', isView: isView, onView: widget.onViewWeight),
           isView
               ? Column(
                   children: weightInfoList.map(
@@ -83,7 +83,8 @@ class _WeightContainerState extends State<WeightContainer> {
                             ? Row(
                                 children: [
                                   CommonText(
-                                    text: '${info.value}kg',
+                                    text:
+                                        '${info.value}${userRepository.user.weightUnit}',
                                     color: color,
                                   ),
                                   const Spacer(),

@@ -112,6 +112,7 @@ class _GoalDateTimeBottomSheetState extends State<GoalDateTimeBottomSheet> {
                 ),
               ),
               CommonCalendar(
+                isNotGoal: true,
                 isDefault: true,
                 sixWeekMonthsEnforced: true,
                 selectedDateTime: titleDateTime,

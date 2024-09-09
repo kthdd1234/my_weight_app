@@ -22,12 +22,13 @@ class CommonCalendar extends StatefulWidget {
     this.rowHeight,
     this.isDefault,
     this.sixWeekMonthsEnforced,
+    this.isNotGoal,
   });
 
   DateTime selectedDateTime;
   CalendarFormat calendarFormat;
   bool shouldFillViewport;
-  bool? isDefault, sixWeekMonthsEnforced;
+  bool? isDefault, sixWeekMonthsEnforced, isNotGoal;
   double? rowHeight;
   Function(bool, DateTime) markerBuilder;
   Function(bool, DateTime)? todayBuilder;
@@ -66,12 +67,20 @@ class _CommonCalendarState extends State<CommonCalendar> {
                 ? themeColor
                 : Colors.white;
 
+    Map<String, dynamic> goalInfo = userRepository.user.goalInfo;
+    DateTime? goalDateTime = goalInfo['goalDateTime'];
+    bool isGoalDateTime = false;
+
+    if (goalDateTime != null && widget.isNotGoal != true) {
+      isGoalDateTime = dateTimeKey(goalDateTime) == dateTimeKey(dateTime);
+    }
+
     return Padding(
       padding: const EdgeInsets.only(top: 13.5),
       child: Column(
         children: [
           CommonText(
-            text: '${dateTime.day}',
+            text: isGoalDateTime ? '⛳️' : '${dateTime.day}',
             color: widget.isDefault == true ? color : themeColor,
             isNotTr: true,
           ),

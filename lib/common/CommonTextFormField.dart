@@ -65,7 +65,7 @@ class CommonTextFormField extends StatelessWidget {
           color: cursorColor,
           fontSize: defaultFontSize - 2,
         ),
-        suffixText: isSuffix != null ? 'kg' : null,
+        suffixText: isSuffix != null ? userRepository.user.weightUnit : null,
         counterText: "",
         contentPadding: contentPadding ??
             const EdgeInsets.symmetric(horizontal: 0, vertical: 0),

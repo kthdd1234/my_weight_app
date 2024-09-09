@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_weight_app/common/CommonSegmented.dart';
 import 'package:my_weight_app/common/CommonSvgText.dart';
-import 'package:my_weight_app/common/CommonTag.dart';
 import 'package:my_weight_app/provider/SelectedDateTimeProvider.dart';
 import 'package:my_weight_app/provider/TitleDateTimeProvider.dart';
 import 'package:my_weight_app/util/enum.dart';
@@ -75,7 +73,7 @@ class _CalendarTitleState extends State<CalendarTitle> {
           ),
           const Spacer(),
           SizedBox(
-            width: 100,
+            width: 110,
             child: CommonSegmented(
               selectedSegment: widget.selectedSegment,
               children: categorySegmented(widget.selectedSegment),

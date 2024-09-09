@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   SegmentedTypes selectedSegment = SegmentedTypes.weight;
 
   onSegmentedChanged(SegmentedTypes? segmentedType) {
-    //
+    setState(() => selectedSegment = segmentedType!);
   }
 
   @override
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
               selectedSegment: selectedSegment,
               onSegmentedChanged: onSegmentedChanged,
             ),
-            CalendarView(),
+            CalendarView(selectedSegment: selectedSegment),
             const Spacer(),
             const TodayButton()
           ],

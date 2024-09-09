@@ -357,7 +357,7 @@ List<ConditionInfoClass> initConditionInfoList = [
 categorySegmented(SegmentedTypes segmented) {
   Map<SegmentedTypes, Widget> segmentedData = {
     SegmentedTypes.weight: onSegmentedWidget(
-      title: '체중',
+      title: '몸무게',
       type: SegmentedTypes.weight,
       selected: segmented,
     ),
@@ -366,6 +366,11 @@ categorySegmented(SegmentedTypes segmented) {
       type: SegmentedTypes.image,
       selected: segmented,
     ),
+    // SegmentedTypes.condition: onSegmentedWidget(
+    //   title: '컨디션',
+    //   type: SegmentedTypes.condition,
+    //   selected: segmented,
+    // ),
   };
 
   return segmentedData;

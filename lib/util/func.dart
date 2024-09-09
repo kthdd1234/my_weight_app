@@ -13,6 +13,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:my_weight_app/common/CommonSegmented.dart';
 import 'package:my_weight_app/common/CommonText.dart';
 import 'package:my_weight_app/model/condition_box/condition_box.dart';
+import 'package:my_weight_app/model/user_box/user_box.dart';
 import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/enum.dart';
@@ -371,7 +372,10 @@ todayBuilder(bool isLight, DateTime dateTime) {
             color: darkButtonColor.withOpacity(0.8),
             borderRadius: BorderRadius.circular(100),
           ),
-          child: CommonText(text: '${dateTime.day}', color: Colors.white),
+          child: CommonText(
+            text: '${dateTime.day}',
+            color: Colors.white,
+          ),
         ),
       ],
     ),
@@ -413,7 +417,7 @@ ColorClass getColorClass(String? name) {
   return colorList.firstWhere((info) => info.colorName == name);
 }
 
-isToday(DateTime dateTime) {
+bool isToday(DateTime dateTime) {
   DateTime now = DateTime.now();
 
   return now.year == dateTime.year &&
@@ -523,4 +527,8 @@ List<ConditionBox> getConditionList() {
   });
 
   return conditionList;
+}
+
+List<Uint8List> getMemoImageList(List<dynamic>? memoImageList) {
+  return memoImageList?.map((image) => image as Uint8List).toList() ?? [];
 }

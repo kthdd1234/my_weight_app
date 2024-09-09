@@ -97,10 +97,15 @@ class ConditionInfoClass {
 }
 
 class DiaryInfoClass {
-  DiaryInfoClass({required this.text, required this.textAlign});
+  DiaryInfoClass({
+    this.text,
+    required this.textAlign,
+    this.memoImageList,
+  });
 
-  String text;
+  String? text;
   TextAlign textAlign;
+  List<Uint8List>? memoImageList;
 }
 
 class GoalInfoClass {

@@ -76,8 +76,8 @@ class _StartPageState extends State<StartPage> {
         body: Column(
           children: [
             const Spacer(),
-            CommonText(text: '반가워요! 오늘의 체중 앱과 함께'),
-            CommonText(text: '꾸준히 체중을 관리해보아요 :D'),
+            CommonText(text: '반가워요! 몸무게 달력 앱과 함께'),
+            CommonText(text: '꾸준히 몸무게를 관리해보아요 :D'),
             const Spacer(),
             CommonButton(
               text: '시작하기',

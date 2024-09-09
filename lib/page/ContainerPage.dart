@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:my_weight_app/common/CommonBackground.dart';
@@ -19,8 +18,6 @@ import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
 import 'package:my_weight_app/widget/container/ConditionContainer.dart';
 import 'package:my_weight_app/widget/container/DiaryContainer.dart';
-import 'package:my_weight_app/widget/container/DietContainer.dart';
-import 'package:my_weight_app/widget/container/ExerciseContainer.dart';
 import 'package:my_weight_app/widget/container/ImageContainer.dart';
 import 'package:my_weight_app/widget/container/WeightContainer.dart';
 import 'package:my_weight_app/widget/popup/AlertPopup.dart';
@@ -48,14 +45,27 @@ class _ContainerPageState extends State<ContainerPage> {
     int recordKey = dateTimeKey(widget.dateTime);
     RecordBox? record = recordRepository.recordBox.get(recordKey);
 
+    conditionList = conditionRepository.conditionList.where((condition) {
+      List<String> conditionIdList = record?.conditionIdList ?? [];
+      return conditionIdList.contains(condition.id);
+    }).toList();
+
     if (record != null) {
       morningWeight = record.morningWeight;
       nightWeight = record.nightWeight;
       imageList = record.imageList ?? [];
-      diaryInfo = DiaryInfoClass(
-        text: diaryInfo?.text ?? '',
-        textAlign: diaryInfo?.textAlign ?? TextAlign.left,
-      );
+      conditionList = conditionList;
+
+      diaryInfo = record.diaryInfo != null
+          ? DiaryInfoClass(
+              text: record.diaryInfo!['text'] ?? '',
+              textAlign: textAlignInfo[record.diaryInfo!['textAlign']] ??
+                  TextAlign.left,
+              memoImageList: getMemoImageList(
+                record.diaryInfo!['memoImageList'],
+              ),
+            )
+          : null;
     }
 
     super.initState();
@@ -133,6 +143,12 @@ class _ContainerPageState extends State<ContainerPage> {
     );
   }
 
+  onRemoveWeight(String id) {
+    setState(() {
+      id == 'morning' ? morningWeight = null : nightWeight = null;
+    });
+  }
+
   onMaximumImagePopup() {
     return showDialog(
       context: context,
@@ -183,12 +199,6 @@ class _ContainerPageState extends State<ContainerPage> {
     );
   }
 
-  onRemoveWeight(String id) {
-    setState(() {
-      id == 'morning' ? morningWeight = null : nightWeight = null;
-    });
-  }
-
   onRemoveImage(Uint8List uint8List) {
     setState(() {
       imageList.removeWhere((uint8List_) => uint8List_ == uint8List);
@@ -233,17 +243,19 @@ class _ContainerPageState extends State<ContainerPage> {
     List<String>? conditionIdList_ = conditionList.isNotEmpty
         ? conditionList.map((condition) => condition.id).toList()
         : null;
-    Map<String, String>? diaryInfo_ = diaryInfo != null
+    Map<String, dynamic>? diaryInfo_ = diaryInfo != null
         ? {
             'text': diaryInfo?.text ?? '',
             'textAlign':
-                diaryInfo?.textAlign.toString() ?? TextAlign.left.toString()
+                diaryInfo?.textAlign.toString() ?? TextAlign.left.toString(),
+            'memoImageList': diaryInfo?.memoImageList
           }
         : null;
 
     if (record == null) {
-      recordRepository.addRecord(
-        RecordBox(
+      recordRepository.updateRecord(
+        key: dateTimeKey(widget.dateTime),
+        record: RecordBox(
           createDateTime: widget.dateTime,
           morningWeight: morningWeight,
           nightWeight: nightWeight,
@@ -317,6 +329,7 @@ class _ContainerPageState extends State<ContainerPage> {
                           onSeletedCondition: onSeletedCondition,
                         ),
                         DiaryContainer(
+                          isPremium: isPremium,
                           diaryInfo: diaryInfo,
                           onCompleted: onCompletedDiary,
                           onRemove: onRemoveDiary,
@@ -333,7 +346,7 @@ class _ContainerPageState extends State<ContainerPage> {
                   buttonColor: isSaveButton ? darkButtonColor : Colors.white,
                   verticalPadding: 12.5,
                   borderRadius: 7,
-                  onTap: onSaveRecord,
+                  onTap: isSaveButton ? onSaveRecord : () {},
                 )
               ],
             ),

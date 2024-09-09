@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:my_weight_app/common/CommonNull.dart';
 import 'package:my_weight_app/util/enum.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -41,7 +40,7 @@ class _WeightGraphState extends State<WeightGraph> {
         borderWidth: 1.0,
         borderColor: grey.original,
         isVisible: true,
-        text: '목표 체중: '.tr(
+        text: '목표 몸무게: '.tr(
           namedArgs: {"weight": 'kg', 'unit': 'kg'},
         ),
         textStyle: TextStyle(color: grey.original),

@@ -37,7 +37,7 @@ class _GoalWeightBottomSheetState extends State<GoalWeightBottomSheet> {
   onChanged(_) {
     bool isInit = isDoubleTryParse(text: controller.text) == false ||
         isErorr(
-          unit: 'kg',
+          unit: userRepository.user.weightUnit,
           value: stringToDouble(controller.text),
         );
 
@@ -57,7 +57,7 @@ class _GoalWeightBottomSheetState extends State<GoalWeightBottomSheet> {
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: CommonModalSheet(
-        title: '목표 체중',
+        title: '목표 몸무게',
         height: 180,
         child: SingleChildScrollView(
           child: Column(
@@ -66,7 +66,7 @@ class _GoalWeightBottomSheetState extends State<GoalWeightBottomSheet> {
                 isSuffix: true,
                 autofocus: true,
                 controller: controller,
-                hintText: '목표 체중을 입력해주세요'.tr(),
+                hintText: '목표 몸무게를 입력해주세요'.tr(),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 onChanged: onChanged,

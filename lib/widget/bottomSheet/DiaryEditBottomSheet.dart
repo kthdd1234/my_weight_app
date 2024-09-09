@@ -16,7 +16,7 @@ class DiaryEditBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonModalSheet(
-      title: '일기',
+      title: '메모',
       height: 195,
       child: Row(
         children: [

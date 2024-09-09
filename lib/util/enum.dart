@@ -12,6 +12,7 @@ enum SegmentedTypes {
   custom,
   weight,
   image,
+  condition
 }
 
 enum JumpDayTypeEnum { none, subtract, add }

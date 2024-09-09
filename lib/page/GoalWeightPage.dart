@@ -135,7 +135,7 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
                     CommonText(
                       text: goalWeight != null
                           ? '$goalWeight$weightUnit'
-                          : '목표 체중을 입력해주세요',
+                          : '목표 몸무게를 입력해주세요',
                       color: goalWeight != null ? Colors.black : grey.s400,
                     ),
                     const Spacer(),

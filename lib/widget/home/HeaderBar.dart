@@ -62,7 +62,7 @@ class _HeaderBarState extends State<HeaderBar> {
               child: CommonTag(
                 text: isGoal
                     ? '⛳️ $goalDateTimeText까지 $goalWeightText 달성!'
-                    : '⛳️ 목표 체중과 날짜를 설정해주세요',
+                    : '⛳️ 목표 몸무게과 날짜를 설정해주세요',
                 fontSize: 16,
                 onTap: onGoal,
               ),
