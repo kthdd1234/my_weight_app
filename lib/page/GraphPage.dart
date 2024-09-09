@@ -75,7 +75,7 @@ class _GraphPageState extends State<GraphPage> {
   Widget build(BuildContext context) {
     return CommonBackground(
       child: CommonScaffold(
-        appBarInfo: AppBarInfoClass(title: '그래프'),
+        appBarInfo: AppBarInfoClass(title: '몸무게 변화'),
         body: Column(
           children: [
             ContainerGraph(

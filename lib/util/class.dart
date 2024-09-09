@@ -127,3 +127,10 @@ class DietExerciseTypeClass {
 
   String id, name, colorName, emoji;
 }
+
+class GraphData {
+  GraphData(this.x, this.y);
+
+  final String x;
+  final double? y;
+}

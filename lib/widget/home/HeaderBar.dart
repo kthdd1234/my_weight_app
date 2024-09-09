@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
+import 'package:my_weight_app/common/CommonRichText.dart';
 import 'package:my_weight_app/common/CommonSvg.dart';
 import 'package:my_weight_app/common/CommonTag.dart';
 import 'package:my_weight_app/model/user_box/user_box.dart';
@@ -59,12 +61,26 @@ class _HeaderBarState extends State<HeaderBar> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 5, 0, 0),
-              child: CommonTag(
-                text: isGoal
-                    ? '⛳️ $goalDateTimeText까지 $goalWeightText 달성!'
-                    : '⛳️ 목표 몸무게과 날짜를 설정해주세요',
-                fontSize: 16,
+              child: InkWell(
                 onTap: onGoal,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 3,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: CommonRichText(
+                    startText: isGoal
+                        ? '⛳️ $goalDateTimeText까지'
+                        : '⛳️ 목표 몸무게과 날짜를 설정해주세요',
+                    targetText: isGoal ? ' $goalWeightText ' : '',
+                    targetTextColor: purple.original,
+                    endText: isGoal ? '달성!' : '',
+                  ),
+                ),
               ),
             ),
             const Spacer(),

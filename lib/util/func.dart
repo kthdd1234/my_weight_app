@@ -137,6 +137,28 @@ String hmFormatter({required String locale, required DateTime dateTime}) {
   return DateFormat.jm(locale).format(dateTime);
 }
 
+m_d({required String locale, required DateTime dateTime}) {
+  if (locale == 'ko') {
+    return DateFormat('M.d', 'ko').format(dateTime);
+  }
+
+  return DateFormat.Md(locale).format(dateTime);
+}
+
+yyyyUnderMd({required String locale, required DateTime dateTime}) {
+  return DateFormat(
+    locale == 'ko' || locale == 'ja' ? 'yyyy\nM.d' : 'M.d\nyyyy',
+    locale,
+  ).format(dateTime);
+}
+
+yyyyUnderM({required String locale, required DateTime dateTime}) {
+  return DateFormat(
+    locale == 'ko' || locale == 'ja' ? 'yyyy\nMMMM' : 'M\nyyyy',
+    locale,
+  ).format(dateTime);
+}
+
 void pop(context) {
   Navigator.of(context, rootNavigator: true).pop('dialog');
 }
@@ -531,4 +553,17 @@ List<ConditionBox> getConditionList() {
 
 List<Uint8List> getMemoImageList(List<dynamic>? memoImageList) {
   return memoImageList?.map((image) => image as Uint8List).toList() ?? [];
+}
+
+getGraphX({
+  required String locale,
+  required bool isWeek,
+  required String graphType,
+  required DateTime dateTime,
+}) {
+  return isWeek && (graphType == eGraphDefault)
+      ? dFormatter(locale: locale, dateTime: dateTime)
+      : (graphType == eGraphCustom)
+          ? yyyyUnderMd(locale: locale, dateTime: dateTime)
+          : m_d(locale: locale, dateTime: dateTime);
 }

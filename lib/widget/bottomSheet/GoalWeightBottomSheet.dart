@@ -65,6 +65,8 @@ class _GoalWeightBottomSheetState extends State<GoalWeightBottomSheet> {
               CommonTextFormField(
                 isSuffix: true,
                 autofocus: true,
+                cursorColor: purple.s400,
+                textColor: purple.original,
                 controller: controller,
                 hintText: '목표 몸무게를 입력해주세요'.tr(),
                 keyboardType:
@@ -75,7 +77,7 @@ class _GoalWeightBottomSheetState extends State<GoalWeightBottomSheet> {
                 outerPadding: const EdgeInsets.only(top: 10),
                 text: '완료',
                 textColor: isCompleted ? Colors.white : grey.s400,
-                buttonColor: isCompleted ? darkButtonColor : Colors.white,
+                buttonColor: isCompleted ? purple.s300 : Colors.white,
                 verticalPadding: 10,
                 borderRadius: 7,
                 onTap: () {
