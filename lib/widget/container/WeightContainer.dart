@@ -86,6 +86,7 @@ class _WeightContainerState extends State<WeightContainer> {
                                     text:
                                         '${info.value}${userRepository.user.weightUnit}',
                                     color: color,
+                                    isNotTr: true,
                                   ),
                                   const Spacer(),
                                   RemoveButtonView(

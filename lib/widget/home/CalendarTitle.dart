@@ -65,6 +65,7 @@ class _CalendarTitleState extends State<CalendarTitle> {
               locale: locale,
               dateTime: titleDateTime,
             ),
+            isNotTr: true,
             fontSize: 20,
             svgWidth: 5,
             svgName: 'dir-right-bold',
@@ -73,7 +74,7 @@ class _CalendarTitleState extends State<CalendarTitle> {
           ),
           const Spacer(),
           SizedBox(
-            width: 110,
+            width: locale == 'en' ? 150 : 110,
             child: CommonSegmented(
               selectedSegment: widget.selectedSegment,
               children: categorySegmented(widget.selectedSegment),

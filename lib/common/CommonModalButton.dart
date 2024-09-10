@@ -21,6 +21,7 @@ class CommonModalButton extends StatelessWidget {
     this.innerPadding,
     this.isNotSvgColor,
     this.isNotTr,
+    this.fontSize,
   });
 
   String? svgName;
@@ -29,19 +30,20 @@ class CommonModalButton extends StatelessWidget {
   bool? isNotTr, isNotSvgColor, isSelection;
   EdgeInsets? innerPadding;
   Color? color;
+  double? fontSize;
   Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
     Color bgColor = isLight ? Colors.white : darkContainerColor;
-    Color settingColor = color ?? (isLight ? themeColor : darkTextColor);
+    Color settingColor = color ?? (isLight ? darkButtonColor : darkTextColor);
 
     return Expanded(
       child: Padding(
         padding: innerPadding ?? const EdgeInsets.all(0),
         child: CommonContainer(
-          color: isSelection == true ? themeColor : bgColor,
+          color: isSelection == true ? darkButtonColor : bgColor,
           onTap: onTap,
           radius: 7,
           child: Column(
@@ -68,6 +70,7 @@ class CommonModalButton extends StatelessWidget {
                 text: actionText,
                 color: isSelection == true ? Colors.white : settingColor,
                 isNotTr: isNotTr,
+                fontSize: fontSize,
               )
             ],
           ),

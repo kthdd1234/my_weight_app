@@ -13,7 +13,6 @@ class ExerciseContainer extends StatelessWidget {
     bool isView = userRepository.user.categoryOpenIdList.contains(eExerciseId);
 
     return CommonContainer(
-      isAddShadow: true,
       outerPadding: const EdgeInsets.only(bottom: 10),
       child: Column(
         children: [

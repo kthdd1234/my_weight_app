@@ -94,10 +94,8 @@ flutter:
     - assets/svgs/dir-down.svg
     - assets/svgs/dir-down-bold.svg
     - assets/svgs/top-chart.svg
-    - assets/svgs/top-graph.svg
     - assets/svgs/top-history.svg
     - assets/svgs/top-image.svg
-    - assets/svgs/top-setting.svg
     - assets/svgs/down-up.svg
     - assets/svgs/check.svg
     - assets/svgs/image.svg
@@ -114,6 +112,16 @@ flutter:
     - assets/svgs/premium-free.svg
     - assets/svgs/privacy.svg
     - assets/svgs/version.svg
+    - assets/svgs/language.svg
+    - assets/svgs/unit.svg
+    - assets/svgs/korea.svg
+    - assets/svgs/japan.svg
+    - assets/svgs/usa.svg
+    - assets/svgs/purchase-completed.svg
+    - assets/svgs/premium-ads.svg
+    - assets/svgs/gallery.svg
+    - assets/svgs/graph.svg
+    - assets/svgs/more.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

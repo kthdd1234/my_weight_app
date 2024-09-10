@@ -235,7 +235,7 @@ class _ContainerPageState extends State<ContainerPage> {
     setState(() => diaryInfo = null);
   }
 
-  onSaveRecord() async {
+  onSave() async {
     int recordKey = dateTimeKey(widget.dateTime);
     RecordBox? record = recordRepository.recordBox.get(recordKey);
 
@@ -264,6 +264,8 @@ class _ContainerPageState extends State<ContainerPage> {
           diaryInfo: diaryInfo_,
         ),
       );
+
+      Navigator.pop(context, 'showAd');
     } else {
       record.morningWeight = morningWeight;
       record.nightWeight = nightWeight;
@@ -272,9 +274,8 @@ class _ContainerPageState extends State<ContainerPage> {
       record.diaryInfo = diaryInfo_;
 
       await record.save();
+      pop(context);
     }
-
-    pop(context);
   }
 
   @override
@@ -293,6 +294,7 @@ class _ContainerPageState extends State<ContainerPage> {
         child: CommonScaffold(
           appBarInfo: AppBarInfoClass(
             title: mdeFormatter(locale: locale, dateTime: widget.dateTime),
+            isNotTr: true,
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -346,7 +348,7 @@ class _ContainerPageState extends State<ContainerPage> {
                   buttonColor: isSaveButton ? darkButtonColor : Colors.white,
                   verticalPadding: 12.5,
                   borderRadius: 7,
-                  onTap: isSaveButton ? onSaveRecord : () {},
+                  onTap: isSaveButton ? onSave : () {},
                 )
               ],
             ),

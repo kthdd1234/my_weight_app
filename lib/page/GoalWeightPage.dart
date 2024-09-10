@@ -107,12 +107,13 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
                   children: [
                     CommonText(
                       text: goalDateTime != null
-                          ? '${ymdeFullFormatter(
+                          ? ymdeFullFormatter(
                               locale: locale,
                               dateTime: goalDateTime!,
-                            )}까지'
-                          : '목표 날짜를 선택해주세요',
+                            )
+                          : '목표 날짜를 선택해주세요'.tr(),
                       fontSize: defaultFontSize - 1,
+                      isNotTr: true,
                       color: goalDateTime != null ? Colors.black : grey.s400,
                     ),
                     const Spacer(),
@@ -135,8 +136,9 @@ class _GoalWeightPageState extends State<GoalWeightPage> {
                     CommonText(
                       text: goalWeight != null
                           ? '$goalWeight$weightUnit'
-                          : '목표 몸무게를 입력해주세요',
+                          : '목표 몸무게를 입력해주세요'.tr(),
                       color: goalWeight != null ? Colors.black : grey.s400,
+                      isNotTr: true,
                     ),
                     const Spacer(),
                     goalWeight != null

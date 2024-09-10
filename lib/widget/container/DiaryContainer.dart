@@ -95,6 +95,7 @@ class _DiaryContainerState extends State<DiaryContainer> {
                                   text: text,
                                   textAlign: textAlign,
                                   fontSize: defaultFontSize - 2,
+                                  isNotTr: true,
                                 )
                               : const CommonNull(),
                         ],

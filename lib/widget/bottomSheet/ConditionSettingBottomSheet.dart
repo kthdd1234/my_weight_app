@@ -90,7 +90,7 @@ class _ConditionSettingBottomSheetState
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: CommonModalSheet(
-        title: '컨디션 ${widget.id == null ? ' 추가' : '수정'}',
+        title: '컨디션 ${widget.id == null ? '추가' : '수정'}',
         height: 255,
         child: SingleChildScrollView(
           child: Column(

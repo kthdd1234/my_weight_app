@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:my_weight_app/common/CommonText.dart';
+import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
 
 class CommonBannerAd extends StatefulWidget {
@@ -47,7 +48,12 @@ class _CommonBannerAdState extends State<CommonBannerAd> {
         height: 50,
         child: _isLoaded
             ? AdWidget(ad: _bannerAd!)
-            : Center(child: CommonText(text: 'ads', isNotTr: true)),
+            : Center(
+                child: CommonText(
+                text: 'ads',
+                isNotTr: true,
+                color: grey.original,
+              )),
       ),
     );
   }

@@ -24,7 +24,6 @@ class CommonBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
-    // String background = path ?? userRepository.user.background ?? '1';
 
     return Container(
       padding: padding,

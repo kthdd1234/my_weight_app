@@ -53,7 +53,6 @@ class ImageContainer extends StatelessWidget {
     }
 
     return CommonContainer(
-      isAddShadow: true,
       outerPadding: const EdgeInsets.only(bottom: 10),
       child: Column(
         children: [

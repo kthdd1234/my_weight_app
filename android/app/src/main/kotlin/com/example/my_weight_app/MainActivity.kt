@@ -1,4 +1,4 @@
-package com.example.my_weight_app
+package com.kthdd.my_weight_app
 
 import io.flutter.embedding.android.FlutterActivity
 

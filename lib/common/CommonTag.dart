@@ -21,6 +21,7 @@ class CommonTag extends StatelessWidget {
     this.isBold,
     this.fontSize,
     this.vertical,
+    this.horizontal,
     this.isNotTr,
     this.isSelection,
   });
@@ -28,7 +29,7 @@ class CommonTag extends StatelessWidget {
   String text;
   String? colorName;
   bool? isBold, isNotTr, isSelection, isColor;
-  double? fontSize, vertical;
+  double? fontSize, vertical, horizontal;
   EdgeInsets? innerPadding;
   Function() onTap;
 
@@ -51,22 +52,22 @@ class CommonTag extends StatelessWidget {
             ? Colors.black
             : Colors.white;
 
-    // if (isColor == true) {
-    //   ColorClass colorInfo = getColorClass(colorName);
+    if (isColor == true) {
+      ColorClass colorInfo = getColorClass(colorName);
 
-    //   bgColor = isSelection == true ? colorInfo.s50 : Colors.white;
-    //   textColor = isSelection == true ? colorInfo.original : grey.original;
-    // }
+      bgColor = isSelection == true ? colorInfo.s50 : Colors.white;
+      textColor = isSelection == true ? colorInfo.s400 : grey.original;
+    }
 
     return Padding(
       padding: innerPadding ?? const EdgeInsets.all(0),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          padding:
-              EdgeInsets.symmetric(vertical: vertical ?? 3, horizontal: 10),
+          padding: EdgeInsets.symmetric(
+              vertical: vertical ?? 3, horizontal: horizontal ?? 10),
           decoration: BoxDecoration(
-            color: bgColor,
+            color: colorName != '투명' ? bgColor : Colors.transparent,
             borderRadius: BorderRadius.circular(5),
           ),
           child: CommonText(

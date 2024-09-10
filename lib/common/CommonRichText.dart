@@ -22,18 +22,18 @@ class CommonRichText extends StatelessWidget {
         children: [
           TextSpan(
             text: startText,
-            style: const TextStyle(fontSize: defaultFontSize - 2),
+            style: const TextStyle(fontSize: defaultFontSize - 1),
           ),
           TextSpan(
             text: targetText,
             style: TextStyle(
               color: targetTextColor,
-              fontSize: defaultFontSize - 2,
+              fontSize: defaultFontSize - 1,
             ),
           ),
           TextSpan(
             text: endText,
-            style: const TextStyle(fontSize: defaultFontSize - 2),
+            style: const TextStyle(fontSize: defaultFontSize - 1),
           ),
         ],
       ),

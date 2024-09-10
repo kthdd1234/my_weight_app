@@ -1,21 +1,22 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:my_weight_app/common/CommonBackground.dart';
-import 'package:my_weight_app/common/CommonScaffold.dart';
+import 'package:my_weight_app/common/CommonBannerAd.dart';
 import 'package:my_weight_app/common/CommonSegmented.dart';
-import 'package:my_weight_app/util/class.dart';
+import 'package:my_weight_app/common/CommonText.dart';
+import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/enum.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
 import 'package:my_weight_app/widget/graph/ContainerGraph.dart';
 
-class GraphPage extends StatefulWidget {
-  const GraphPage({super.key});
+class GraphBody extends StatefulWidget {
+  const GraphBody({super.key});
 
   @override
-  State<GraphPage> createState() => _GraphPageState();
+  State<GraphBody> createState() => _GraphBodyState();
 }
 
-class _GraphPageState extends State<GraphPage> {
+class _GraphBodyState extends State<GraphBody> {
   late DateTime startDateTime, endDateTime;
   SegmentedTypes selectedDateTimeSegment = SegmentedTypes.week;
   String graphCategory = 'weight';
@@ -77,31 +78,32 @@ class _GraphPageState extends State<GraphPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CommonBackground(
-      child: CommonScaffold(
-        appBarInfo: AppBarInfoClass(title: '몸무게 변화'),
-        body: Column(
-          children: [
-            ContainerGraph(
-              graphCategory: graphCategory,
-              graphType: eGraphDefault,
-              selectedDateTimeSegment: selectedDateTimeSegment,
-              startDateTime: startDateTime,
-              endDateTime: endDateTime,
-              setChartSwipeDirectionStart: setChartSwipeDirectionStart,
-              setChartSwipeDirectionEnd: setChartSwipeDirectionEnd,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: CommonSegmented(
-                selectedSegment: selectedDateTimeSegment,
-                children: rangeSegmented(selectedDateTimeSegment),
-                onSegmentedChanged: onSegmentedDateTimeChanged,
-              ),
-            ),
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const CommonBannerAd(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: CommonText(text: '몸무게 변화', fontSize: defaultFontSize + 3),
         ),
-      ),
+        ContainerGraph(
+          graphCategory: graphCategory,
+          graphType: eGraphDefault,
+          selectedDateTimeSegment: selectedDateTimeSegment,
+          startDateTime: startDateTime,
+          endDateTime: endDateTime,
+          setChartSwipeDirectionStart: setChartSwipeDirectionStart,
+          setChartSwipeDirectionEnd: setChartSwipeDirectionEnd,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: CommonSegmented(
+            selectedSegment: selectedDateTimeSegment,
+            children: rangeSegmented(selectedDateTimeSegment),
+            onSegmentedChanged: onSegmentedDateTimeChanged,
+          ),
+        ),
+      ],
     );
   }
 }

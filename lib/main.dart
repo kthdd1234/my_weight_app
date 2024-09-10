@@ -1,14 +1,17 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:my_weight_app/model/user_box/user_box.dart';
 import 'package:my_weight_app/page/HomePage.dart';
 import 'package:my_weight_app/page/StartPage.dart';
+import 'package:my_weight_app/provider/BottomTabIndexProvider.dart';
 import 'package:my_weight_app/provider/PremiumProvider.dart';
 import 'package:my_weight_app/provider/ReloadProvider.dart';
 import 'package:my_weight_app/provider/SelectedDateTimeProvider.dart';
@@ -19,9 +22,10 @@ import 'package:my_weight_app/repository/init_hive.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:provider/provider.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
-// final purchasesConfiguration =
-//     PurchasesConfiguration(Platform.isIOS ? appleApiKey : googleApiKey);
+final purchasesConfiguration =
+    PurchasesConfiguration(Platform.isIOS ? appleApiKey : googleApiKey);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,8 +33,8 @@ void main() async {
   await initializeDateFormatting();
   await EasyLocalization.ensureInitialized();
   await InitHive().initializeHive();
-  // await Purchases.configure(purchasesConfiguration);
-  // await MobileAds.instance.initialize();
+  await Purchases.configure(purchasesConfiguration);
+  await MobileAds.instance.initialize();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
@@ -39,6 +43,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => BottomTabIndexProvider()),
         ChangeNotifierProvider(create: (context) => SelectedDateTimeProvider()),
         ChangeNotifierProvider(create: (context) => PremiumProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),

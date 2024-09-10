@@ -7,6 +7,7 @@ import 'package:my_weight_app/repository/record_repository.dart';
 import 'package:my_weight_app/repository/user_repository.dart';
 import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/enum.dart';
+import 'package:my_weight_app/util/func.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 String tSystem = Themes.system.toString();
@@ -301,19 +302,9 @@ final premiumBenefitsClassList = [
     subTitle: '광고없이 쾌적하게 앱을 사용해보세요',
   ),
   PremiumBenefitsClass(
-    svgName: 'category',
-    title: '노트를 제한없이 추가할 수 있어요',
-    subTitle: '다양한 노트를 제한없이 추가해보세요',
-  ),
-  PremiumBenefitsClass(
     svgName: 'gallery',
     title: '사진을 최대 6장까지 추가 할 수 있어요',
-    subTitle: '보다 많은 노트 사진을 추가해보세요!',
-  ),
-  PremiumBenefitsClass(
-    svgName: 'premium-backdrop',
-    title: '다양한 배경 테마들을 제공해드려요',
-    subTitle: '총 6종의 배경 테마들을 이용해보세요!',
+    subTitle: '보다 많은 눈바디, 메모 사진을 추가해보세요!',
   ),
 ];
 

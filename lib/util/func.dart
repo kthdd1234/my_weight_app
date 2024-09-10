@@ -13,13 +13,11 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:my_weight_app/common/CommonSegmented.dart';
 import 'package:my_weight_app/common/CommonText.dart';
 import 'package:my_weight_app/model/condition_box/condition_box.dart';
-import 'package:my_weight_app/model/user_box/user_box.dart';
 import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/enum.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:purchases_flutter/models/customer_info_wrapper.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -198,10 +196,13 @@ Future<Map<String, dynamic>> getAppInfo() async {
   };
 }
 
-navigator({required BuildContext context, required Widget page}) {
-  Navigator.push(
+Future<String?> navigator({
+  required BuildContext context,
+  required Widget page,
+}) {
+  return Navigator.push(
     context,
-    MaterialPageRoute<void>(builder: (BuildContext context) => page),
+    MaterialPageRoute<String>(builder: (BuildContext context) => page),
   );
 }
 
@@ -271,7 +272,6 @@ Future<bool> isPurchasePremium() async {
         customerInfo.entitlements.all[entitlementIdentifier]?.isActive == true;
 
     return isActive;
-    // return true;
   } on PlatformException catch (e) {
     log('e =>> ${e.toString()}');
     return false;
@@ -389,7 +389,7 @@ todayBuilder(bool isLight, DateTime dateTime) {
     child: Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
           decoration: BoxDecoration(
             color: darkButtonColor.withOpacity(0.8),
             borderRadius: BorderRadius.circular(100),
@@ -397,6 +397,7 @@ todayBuilder(bool isLight, DateTime dateTime) {
           child: CommonText(
             text: '${dateTime.day}',
             color: Colors.white,
+            isNotTr: true,
           ),
         ),
       ],
@@ -508,12 +509,13 @@ showSnackBar({
       content: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(text).tr(),
+          Text(text, style: const TextStyle(color: Colors.white)).tr(),
           TextButton(
             onPressed: onPressed,
             child: Text(
               buttonName,
-              style: const TextStyle(color: Colors.grey),
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
             ).tr(),
           )
         ],

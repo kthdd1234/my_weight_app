@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PremiumProvider with ChangeNotifier {
-  bool isPremium = true;
+  bool isPremium = false;
 
   bool premiumValue() {
     return isPremium;

@@ -134,3 +134,15 @@ class GraphData {
   final String x;
   final double? y;
 }
+
+class BNClass {
+  BNClass({
+    required this.index,
+    required this.name,
+    required this.icon,
+  });
+
+  int index;
+  String name;
+  Widget icon;
+}

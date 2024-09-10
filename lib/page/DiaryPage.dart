@@ -190,7 +190,7 @@ class _DiaryPageState extends State<DiaryPage> {
                       ),
                       CommonSpace(height: memoImageList.isNotEmpty ? 5 : 0),
                       CommonTextFormField(
-                        hintText: '식단, 운동, 일기 등 자유롭게 메모해보세요 :D',
+                        hintText: '식단, 운동, 일기 등 자유롭게 메모해보세요 :D'.tr(),
                         isContainer: false,
                         controller: controller,
                         textAlign: textAlign,

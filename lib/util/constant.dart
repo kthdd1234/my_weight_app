@@ -73,10 +73,10 @@ const iOSAppOpeningTestId = 'ca-app-pub-3940256099942544/5575463023';
 const iOSInterstitialTestId = 'ca-app-pub-3940256099942544/4411468910';
 
 /// iOSBannerRealId
-const iOSBannerRealId = '';
+const iOSBannerRealId = 'ca-app-pub-6804308271128440/2341931844';
 
 // iOSNativeRealId
-const iOSNativeRealId = '';
+const iOSNativeRealId = 'ca-app-pub-6804308271128440/8880777270';
 
 // iOSAppOpeningRealId
 const iOSAppOpeningRealId = '';
@@ -85,7 +85,7 @@ const iOSAppOpeningRealId = '';
 const iOSInterstitialRealId = '';
 
 /// appleApiKey
-const appleApiKey = '';
+const appleApiKey = 'appl_hgFOCxgusHMPxQsAtRaqCddiAJa';
 
 /// googleApiKey
 const googleApiKey = '';

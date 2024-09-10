@@ -43,7 +43,7 @@ class CommonContainer extends StatelessWidget {
                   ? [
                       BoxShadow(
                         color: const Color.fromARGB(255, 206, 206, 206)
-                            .withOpacity(isAddShadow == true ? 0.3 : 0.2),
+                            .withOpacity(isAddShadow == true ? 0.3 : 0.0),
                         blurRadius: 10,
                         offset: const Offset(2, 4),
                       )

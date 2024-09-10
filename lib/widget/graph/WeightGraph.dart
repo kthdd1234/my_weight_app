@@ -48,12 +48,13 @@ class _WeightGraphState extends State<WeightGraph> {
     List<PlotBand> plotBandList = <PlotBand>[
       PlotBand(
         borderWidth: 1.0,
-        borderColor: grey.original,
+        borderColor: purple.s200,
         isVisible: true,
+        // text: '목표 몸무게: ${goalWeight ?? '-'}$weightUnit'.tr(),
         text: '목표 몸무게: '.tr(
-          namedArgs: {"weight": '${goalWeight ?? '-'}', 'unit': weightUnit},
+          namedArgs: {"goalWeight": '${goalWeight ?? '-'}', 'unit': weightUnit},
         ),
-        textStyle: TextStyle(color: grey.original),
+        textStyle: TextStyle(color: purple.s300),
         start: goalWeight ?? 0.0,
         end: goalWeight ?? 0.0,
         dashArray: const <double>[4, 5],
@@ -140,14 +141,14 @@ class _WeightGraphState extends State<WeightGraph> {
       return FastLineSeries(
         emptyPointSettings: EmptyPointSettings(mode: EmptyPointMode.drop),
         dataSource: fastLineSeries(type),
-        color: type == 'morning' ? blue.s300 : red.s300,
+        color: type == 'morning' ? blue.s300 : red.s200,
         xValueMapper: (data, _) => data.x,
         yValueMapper: (data, _) => data.y,
         markerSettings: MarkerSettings(isVisible: widget.isVisible),
         dataLabelSettings: DataLabelSettings(
           isVisible: widget.isVisible,
           textStyle: TextStyle(
-            color: type == 'morning' ? blue.original : red.original,
+            color: type == 'morning' ? blue.original : red.s300,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -161,7 +162,7 @@ class _WeightGraphState extends State<WeightGraph> {
       tooltipBehavior: TooltipBehavior(
         header: '',
         enable: true,
-        format: 'point.x: point.y${'kg'}',
+        format: 'point.x: point.y$weightUnit',
         textStyle: const TextStyle(fontWeight: FontWeight.bold),
       ),
       primaryXAxis: CategoryAxis(),

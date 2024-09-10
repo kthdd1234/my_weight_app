@@ -40,7 +40,6 @@ class _DietContainerState extends State<DietContainer> {
     bool isView = userRepository.user.categoryOpenIdList.contains(eDietId);
 
     return CommonContainer(
-      isAddShadow: true,
       outerPadding: const EdgeInsets.only(bottom: 10),
       child: Column(
         children: [

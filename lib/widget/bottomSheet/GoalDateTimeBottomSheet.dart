@@ -63,7 +63,13 @@ class _GoalDateTimeBottomSheetState extends State<GoalDateTimeBottomSheet> {
     return Padding(
       padding: const EdgeInsets.only(top: 14),
       child: Column(
-        children: [CommonText(text: '${dateTime.day}', color: color)],
+        children: [
+          CommonText(
+            text: '${dateTime.day}',
+            color: color,
+            isNotTr: true,
+          )
+        ],
       ),
     );
   }
@@ -95,17 +101,19 @@ class _GoalDateTimeBottomSheetState extends State<GoalDateTimeBottomSheet> {
                           yMFormatter(locale: locale, dateTime: titleDateTime),
                       fontSize: 20,
                       svgWidth: 10,
+                      isNotTr: true,
                       svgDirection: SvgDirection.right,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     CommonText(
                       text: widget.goalDateTime != null
                           ? '⛳️ ${ymdeFullFormatter(
                               locale: locale,
                               dateTime: widget.goalDateTime!,
-                            )}까지'
-                          : '날짜를 선택해주세요',
+                            )}'
+                          : '날짜를 선택해주세요'.tr(),
                       color: grey.original,
+                      isNotTr: true,
                       fontSize: 13,
                     )
                   ],
