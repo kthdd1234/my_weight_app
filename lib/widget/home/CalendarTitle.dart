@@ -74,7 +74,7 @@ class _CalendarTitleState extends State<CalendarTitle> {
           ),
           const Spacer(),
           SizedBox(
-            width: locale == 'en' ? 150 : 110,
+            width: locale == 'en' ? 170 : 110,
             child: CommonSegmented(
               selectedSegment: widget.selectedSegment,
               children: categorySegmented(widget.selectedSegment),

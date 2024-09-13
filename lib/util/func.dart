@@ -268,6 +268,7 @@ Future<bool> setPurchasePremium(Package package) async {
 Future<bool> isPurchasePremium() async {
   try {
     CustomerInfo customerInfo = await Purchases.getCustomerInfo();
+
     bool isActive =
         customerInfo.entitlements.all[entitlementIdentifier]?.isActive == true;
 
@@ -389,7 +390,7 @@ todayBuilder(bool isLight, DateTime dateTime) {
     child: Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
           decoration: BoxDecoration(
             color: darkButtonColor.withOpacity(0.8),
             borderRadius: BorderRadius.circular(100),

@@ -81,13 +81,14 @@ class _MorePageState extends State<MorePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isPremium = context.watch<PremiumProvider>().isPremium;
+
     return MultiValueListenableBuilder(
         valueListenables: valueListenables,
         builder: (context, values, child) {
           UserBox user = userRepository.user;
           String weightUnit = user.weightUnit;
           String locale = context.locale.toString();
-          bool isPremium = context.watch<PremiumProvider>().isPremium;
 
           List<MoreItem> moreItemList = [
             MoreItem(

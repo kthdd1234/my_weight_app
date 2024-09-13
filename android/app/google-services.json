@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "671476633370",
+    "project_id": "weight-calendar-project",
+    "storage_bucket": "weight-calendar-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671476633370:android:d8a72237121eec9bfda6a3",
+        "android_client_info": {
+          "package_name": "com.kthdd.my_weight_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlikzQfcUC76EaYmpmH9PVDu_os1A9zys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

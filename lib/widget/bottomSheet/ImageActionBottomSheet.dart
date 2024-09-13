@@ -1,11 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_weight_app/common/CommonModalButton.dart';
 import 'package:my_weight_app/common/CommonModalSheet.dart';
 import 'package:my_weight_app/common/CommonSpace.dart';
+import 'package:my_weight_app/util/func.dart';
 import 'package:my_weight_app/widget/popup/AlertPopup.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -35,13 +37,17 @@ class _ImageActionBottomSheetState extends State<ImageActionBottomSheet> {
     } catch (e) {
       PermissionStatus status = await Permission.camera.status;
 
+      log('??');
+      log('${status.isDenied}');
+
       if (status.isDenied) {
+        pop(context);
         showDialog(
           context: context,
           builder: (context) => AlertPopup(
             desc: '카메라 접근 권한이 없습니다.\n설정으로 이동하여\n카메라 접근을 허용해주세요.',
             buttonText: '설정으로 이동',
-            height: 195,
+            height: 216,
             onTap: openAppSettings,
           ),
         );

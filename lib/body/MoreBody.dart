@@ -1,16 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
-import 'package:my_weight_app/common/CommonBackground.dart';
 import 'package:my_weight_app/common/CommonNull.dart';
-import 'package:my_weight_app/common/CommonScaffold.dart';
 import 'package:my_weight_app/common/CommonSpace.dart';
 import 'package:my_weight_app/common/CommonText.dart';
 import 'package:my_weight_app/model/user_box/user_box.dart';
 import 'package:my_weight_app/page/PremiumPage.dart';
 import 'package:my_weight_app/provider/PremiumProvider.dart';
 import 'package:my_weight_app/provider/ThemeProvider.dart';
-import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
@@ -53,7 +50,7 @@ class _MoreBodyState extends State<MoreBody> {
     Uri url = Uri(
       scheme: 'https',
       host: 'nettle-dill-e85.notion.site',
-      path: 'eee748728b474207b2f640c910cd8a70',
+      path: 'ba155d3a708e4966bf3a9c06ece6e780',
       queryParameters: {'pvs': '4'},
     );
 

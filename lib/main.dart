@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +24,7 @@ import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:provider/provider.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'firebase_options.dart';
 
 final purchasesConfiguration =
     PurchasesConfiguration(Platform.isIOS ? appleApiKey : googleApiKey);
@@ -35,9 +37,9 @@ void main() async {
   await InitHive().initializeHive();
   await Purchases.configure(purchasesConfiguration);
   await MobileAds.instance.initialize();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // await HomeWidget.setAppGroupId('group.todo-planner-widget');
 
   runApp(

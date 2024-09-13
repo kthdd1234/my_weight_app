@@ -66,6 +66,7 @@ class _CalendarViewState extends State<CalendarView> {
             colorName: isMorning ? '파란색' : '투명',
             isSelection: isMorning,
             isNotTr: true,
+            isBold: true,
             isColor: isMorning,
             onTap: () => onDaySelected(dateTime),
           ),
@@ -78,6 +79,7 @@ class _CalendarViewState extends State<CalendarView> {
             colorName: isNight ? '빨간색' : '투명',
             isSelection: isNight,
             isNotTr: true,
+            isBold: true,
             isColor: isNight,
             onTap: () => onDaySelected(dateTime),
           )

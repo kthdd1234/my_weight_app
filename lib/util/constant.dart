@@ -49,10 +49,10 @@ const androidAppOpeningTestId = 'ca-app-pub-3940256099942544/9257395921';
 const androidInterstitialTestId = 'ca-app-pub-3940256099942544/1033173712';
 
 /// androidBannerRealId
-const androidBannerRealId = '';
+const androidBannerRealId = 'ca-app-pub-6804308271128440/6005613173';
 
 /// androidNativeRealId
-const androidNativeRealId = '';
+const androidNativeRealId = 'ca-app-pub-6804308271128440/7137053404';
 
 /// androidAppOpeningRealId
 const androidAppOpeningRealId = '';
@@ -88,7 +88,7 @@ const iOSInterstitialRealId = '';
 const appleApiKey = 'appl_hgFOCxgusHMPxQsAtRaqCddiAJa';
 
 /// googleApiKey
-const googleApiKey = '';
+const googleApiKey = 'goog_PxLNPcycMHNbDeLTsvCyYbQEiAh';
 
 /// offeringIdentifier
 const offeringIdentifier = 'premium';

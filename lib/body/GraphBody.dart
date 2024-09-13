@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:my_weight_app/common/CommonBannerAd.dart';
+import 'package:my_weight_app/common/CommonNull.dart';
 import 'package:my_weight_app/common/CommonSegmented.dart';
 import 'package:my_weight_app/common/CommonText.dart';
+import 'package:my_weight_app/provider/PremiumProvider.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/enum.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
 import 'package:my_weight_app/widget/graph/ContainerGraph.dart';
+import 'package:provider/provider.dart';
 
 class GraphBody extends StatefulWidget {
   const GraphBody({super.key});
@@ -78,10 +81,12 @@ class _GraphBodyState extends State<GraphBody> {
 
   @override
   Widget build(BuildContext context) {
+    bool isPremium = context.watch<PremiumProvider>().isPremium;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CommonBannerAd(),
+        isPremium == false ? const CommonBannerAd() : const CommonNull(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: CommonText(text: '몸무게 변화', fontSize: defaultFontSize + 3),

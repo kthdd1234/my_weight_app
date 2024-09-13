@@ -52,6 +52,12 @@ class _GoalWeightBottomSheetState extends State<GoalWeightBottomSheet> {
   Widget build(BuildContext context) {
     bool isCompleted = isDoubleTryParse(text: controller.text);
 
+    commonCompleted() {
+      if (isCompleted) {
+        widget.onCompleted(stringToDouble(controller.text));
+      }
+    }
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -71,6 +77,7 @@ class _GoalWeightBottomSheetState extends State<GoalWeightBottomSheet> {
                 hintText: '목표 몸무게를 입력해주세요'.tr(),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
+                onEditingComplete: commonCompleted,
                 onChanged: onChanged,
               ),
               CommonButton(
@@ -80,11 +87,7 @@ class _GoalWeightBottomSheetState extends State<GoalWeightBottomSheet> {
                 buttonColor: isCompleted ? purple.s300 : Colors.white,
                 verticalPadding: 10,
                 borderRadius: 7,
-                onTap: () {
-                  if (isCompleted) {
-                    widget.onCompleted(stringToDouble(controller.text));
-                  }
-                },
+                onTap: commonCompleted,
               )
             ],
           ),

@@ -54,6 +54,15 @@ class _WeightBottomSheetState extends State<WeightBottomSheet> {
   Widget build(BuildContext context) {
     bool isCompleted = isDoubleTryParse(text: controller.text);
 
+    commonCompleted() {
+      if (isCompleted) {
+        widget.onCompleted(
+          widget.id,
+          stringToDouble(controller.text),
+        );
+      }
+    }
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -73,6 +82,7 @@ class _WeightBottomSheetState extends State<WeightBottomSheet> {
                 cursorColor: widget.id == 'morning' ? blue.s400 : red.s300,
                 textColor: widget.id == 'morning' ? blue.original : red.s400,
                 hintText: '몸무게를 입력해주세요'.tr(),
+                onEditingComplete: commonCompleted,
                 onChanged: onChanged,
               ),
               CommonSpace(height: 5),
@@ -87,14 +97,7 @@ class _WeightBottomSheetState extends State<WeightBottomSheet> {
                     : Colors.white,
                 verticalPadding: 10,
                 borderRadius: 7,
-                onTap: () {
-                  if (isCompleted) {
-                    widget.onCompleted(
-                      widget.id,
-                      stringToDouble(controller.text),
-                    );
-                  }
-                },
+                onTap: commonCompleted,
               )
             ],
           ),

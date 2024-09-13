@@ -1,0 +1,5 @@
+"CFBundleDisplayName" = "weight calendar";
+"CFBundleName" = "weight calendar";
+"NSCameraUsageDescription" = "Camera access is required to take photos of your Body shape, diet, and exercise.";
+"NSPhotoLibraryUsageDescription" = "Gallery access is required to add Body shape, diet, and exercise photos.";
+"NSUserTrackingUsageDescription" = "We collect advertising activity information to provide personalized advertising.";

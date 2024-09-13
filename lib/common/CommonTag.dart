@@ -56,7 +56,7 @@ class CommonTag extends StatelessWidget {
       ColorClass colorInfo = getColorClass(colorName);
 
       bgColor = isSelection == true ? colorInfo.s50 : Colors.white;
-      textColor = isSelection == true ? colorInfo.s400 : grey.original;
+      textColor = isSelection == true ? colorInfo.original : grey.original;
     }
 
     return Padding(

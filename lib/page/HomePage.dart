@@ -8,6 +8,7 @@ import 'package:my_weight_app/body/MoreBody.dart';
 import 'package:my_weight_app/common/CommonBackground.dart';
 import 'package:my_weight_app/common/CommonScaffold.dart';
 import 'package:my_weight_app/provider/BottomTabIndexProvider.dart';
+import 'package:my_weight_app/provider/PremiumProvider.dart';
 import 'package:my_weight_app/provider/SelectedDateTimeProvider.dart';
 import 'package:my_weight_app/provider/ThemeProvider.dart';
 import 'package:my_weight_app/provider/TitleDateTimeProvider.dart';
@@ -26,25 +27,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // initializePremium() async {
-  //   bool isPremium = await isPurchasePremium();
+  initializePremium() async {
+    bool isPremium = await isPurchasePremium();
 
-  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-  //     context.read<PremiumProvider>().setPremiumValue(isPremium);
-  //   });
-  // }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<PremiumProvider>().setPremiumValue(isPremium);
+    });
+  }
 
   onBottomNavigation(int newIndex) {
-    if (newIndex == 0 || newIndex == 1) {
+    DateTime now = DateTime.now();
+
+    if (newIndex == 0) {
       context
           .read<SelectedDateTimeProvider>()
-          .changeSelectedDateTime(dateTime: DateTime.now());
-      context
-          .read<TitleDateTimeProvider>()
-          .changeTitleDateTime(dateTime: DateTime.now());
+          .changeSelectedDateTime(dateTime: now);
+      context.read<TitleDateTimeProvider>().changeTitleDateTime(dateTime: now);
     }
 
     context.read<BottomTabIndexProvider>().changeSeletedIdx(newIndex: newIndex);
+  }
+
+  @override
+  void initState() {
+    initializePremium();
+    super.initState();
   }
 
   @override
