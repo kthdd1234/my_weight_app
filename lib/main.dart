@@ -37,10 +37,7 @@ void main() async {
   await InitHive().initializeHive();
   await Purchases.configure(purchasesConfiguration);
   await MobileAds.instance.initialize();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  // await HomeWidget.setAppGroupId('group.todo-planner-widget');
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
     MultiProvider(

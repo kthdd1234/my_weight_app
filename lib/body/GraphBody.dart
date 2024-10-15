@@ -81,12 +81,9 @@ class _GraphBodyState extends State<GraphBody> {
 
   @override
   Widget build(BuildContext context) {
-    bool isPremium = context.watch<PremiumProvider>().isPremium;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        isPremium == false ? const CommonBannerAd() : const CommonNull(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: CommonText(text: '몸무게 변화', fontSize: defaultFontSize + 3),

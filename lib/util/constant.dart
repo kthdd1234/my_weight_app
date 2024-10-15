@@ -55,7 +55,7 @@ const androidBannerRealId = 'ca-app-pub-6804308271128440/6005613173';
 const androidNativeRealId = 'ca-app-pub-6804308271128440/7137053404';
 
 /// androidAppOpeningRealId
-const androidAppOpeningRealId = '';
+const androidAppOpeningRealId = 'ca-app-pub-6804308271128440/7880238525';
 
 /// androidInterstitialRealId
 const androidInterstitialRealId = '';
@@ -79,7 +79,7 @@ const iOSBannerRealId = 'ca-app-pub-6804308271128440/2341931844';
 const iOSNativeRealId = 'ca-app-pub-6804308271128440/8880777270';
 
 // iOSAppOpeningRealId
-const iOSAppOpeningRealId = '';
+const iOSAppOpeningRealId = 'ca-app-pub-6804308271128440/6780514506';
 
 /// iOSInterstitialRealId
 const iOSInterstitialRealId = '';
@@ -97,29 +97,31 @@ const offeringIdentifier = 'premium';
 const entitlementIdentifier = 'premium';
 
 /// APP_STORE_LINK
-const APP_STORE_LINK = "";
+const APP_STORE_LINK =
+    "https://apps.apple.com/us/app/weight-calendar-diet-health/id6670779581";
 
 /// PLAY_STORE_LINK
-const PLAY_STORE_LINK = "";
+const PLAY_STORE_LINK =
+    "https://play.google.com/store/apps/details?id=com.kthdd.my_weight_app";
 
 /// appleId
-const appleId = '';
+const appleId = '6670779581';
 
 /// androidId
-const androidId = 'com.kthdd.';
+const androidId = 'com.kthdd.my_weight_app';
 
 /// iosUrl
 Uri iosUrl = Uri(
   scheme: 'https',
   host: 'apps.apple.com',
-  path: '',
+  path: 'ko/app/weight-calendar-diet-health/id6670779581',
 );
 
 /// androidUrl
 Uri androidUrl = Uri(
   scheme: 'https',
   host: 'play.google.com',
-  path: 'store/apps/details?id=',
+  path: 'store/apps/details?id=com.kthdd.my_weight_app',
 );
 
 /// themeBgColor

@@ -16,6 +16,7 @@ import 'package:my_weight_app/util/class.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/final.dart';
 import 'package:my_weight_app/util/func.dart';
+import 'package:my_weight_app/util/service.dart';
 import 'package:my_weight_app/widget/home/FnbButton.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late AppLifecycleReactor _appLifecycleReactor;
+
+  initialzeAppOpening() {
+    AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+    _appLifecycleReactor = AppLifecycleReactor(
+      appOpenAdManager: appOpenAdManager,
+    );
+    _appLifecycleReactor.listenToAppStateChanges();
+  }
+
   initializePremium() async {
     bool isPremium = await isPurchasePremium();
 
@@ -50,6 +61,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    initialzeAppOpening();
     initializePremium();
     super.initState();
   }

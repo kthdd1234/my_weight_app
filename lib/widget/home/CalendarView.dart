@@ -138,18 +138,7 @@ class _CalendarViewState extends State<CalendarView> {
   }
 
   onDaySelected(DateTime dateTime) async {
-    String? result = await navigator(
-        context: context, page: ContainerPage(dateTime: dateTime));
-
-    if (!context.mounted) return;
-
-    if (result == 'showAd' && widget.isPremium == false) {
-      showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (context) => NativeAdBottomSheet(isLight: widget.isLight),
-      );
-    }
+    await navigator(context: context, page: ContainerPage(dateTime: dateTime));
   }
 
   @override

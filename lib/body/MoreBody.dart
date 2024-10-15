@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:my_weight_app/common/CommonNull.dart';
 import 'package:my_weight_app/common/CommonSpace.dart';
@@ -14,6 +17,7 @@ import 'package:my_weight_app/util/func.dart';
 import 'package:my_weight_app/widget/bottomSheet/LanguageBottomSheet.dart';
 import 'package:my_weight_app/widget/bottomSheet/WeightUnitBottomSheet.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MoreBody extends StatefulWidget {
@@ -71,9 +75,24 @@ class _MoreBodyState extends State<MoreBody> {
     );
   }
 
+  onReview() {
+    InAppReview inAppReview = InAppReview.instance;
+
+    inAppReview.openStoreListing(
+      appStoreId: appleId,
+      microsoftStoreId: androidId,
+    );
+  }
+
+  onShare() {
+    Platform.isIOS
+        ? Share.share(APP_STORE_LINK, subject: '몸무게 달력')
+        : Share.share(PLAY_STORE_LINK, subject: '몸무게 달력');
+  }
+
   onVersion() async {
-    // Uri url = Platform.isIOS ? iosUrl : androidUrl;
-    // await canLaunchUrl(url) ? await launchUrl(url) : print('err');
+    Uri url = Platform.isIOS ? iosUrl : androidUrl;
+    await canLaunchUrl(url) ? await launchUrl(url) : print('err');
   }
 
   @override
@@ -106,6 +125,20 @@ class _MoreBodyState extends State<MoreBody> {
             value: weightUnit,
             isNotTr: true,
             onMore: onUnit,
+          ),
+          MoreItem(
+            svgName: 'review',
+            title: '리뷰',
+            value: '',
+            isNotTr: true,
+            onMore: onReview,
+          ),
+          MoreItem(
+            svgName: 'share',
+            title: '공유',
+            value: '',
+            isNotTr: true,
+            onMore: onShare,
           ),
           MoreItem(
             svgName: 'privacy',
