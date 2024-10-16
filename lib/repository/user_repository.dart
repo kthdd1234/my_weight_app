@@ -14,7 +14,19 @@ class UserRepository {
   }
 
   UserBox get user {
-    return userBox.get(userKey)!;
+    return userBox.get(userKey) ??
+        UserBox(
+          id: '',
+          createDateTime: DateTime.now(),
+          fontFamily: '',
+          theme: 'light',
+          fontSize: 14,
+          background: 0,
+          weightUnit: 'kg',
+          categoryOpenIdList: [],
+          conditionOrderIdList: [],
+          goalInfo: {},
+        );
   }
 
   bool get isUser {

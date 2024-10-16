@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    userBox = Hive.box('userBox');
+    userBox = Hive.box(InitHiveBox.userBox);
 
     appTrackingTransparency();
 

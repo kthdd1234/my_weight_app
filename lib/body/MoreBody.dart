@@ -10,6 +10,7 @@ import 'package:my_weight_app/common/CommonText.dart';
 import 'package:my_weight_app/model/user_box/user_box.dart';
 import 'package:my_weight_app/page/PremiumPage.dart';
 import 'package:my_weight_app/provider/PremiumProvider.dart';
+import 'package:my_weight_app/provider/ReloadProvider.dart';
 import 'package:my_weight_app/provider/ThemeProvider.dart';
 import 'package:my_weight_app/util/constant.dart';
 import 'package:my_weight_app/util/final.dart';
@@ -105,6 +106,24 @@ class _MoreBodyState extends State<MoreBody> {
         String locale = context.locale.toString();
         bool isPremium = context.watch<PremiumProvider>().isPremium;
 
+        onReset() async {
+          try {
+            await recordRepository.recordBox.clear();
+            await conditionRepository.conditionBox.clear();
+            await userRepository.userBox.clear();
+
+            context.read<ReloadProvider>().setReload(true);
+            await Navigator.pushNamedAndRemoveUntil(
+              context,
+              'start-page',
+              (_) => false,
+            );
+          } catch (e) {
+            print('???????????/32032032030230203020');
+            print('$e');
+          }
+        }
+
         List<MoreItem> moreItemList = [
           MoreItem(
             svgName: 'premium-free',
@@ -139,6 +158,13 @@ class _MoreBodyState extends State<MoreBody> {
             value: '',
             isNotTr: true,
             onMore: onShare,
+          ),
+          MoreItem(
+            svgName: 'trash',
+            title: '초기화',
+            value: '',
+            isNotTr: true,
+            onMore: onReset,
           ),
           MoreItem(
             svgName: 'privacy',

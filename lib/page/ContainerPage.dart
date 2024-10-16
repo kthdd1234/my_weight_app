@@ -278,6 +278,18 @@ class _ContainerPageState extends State<ContainerPage> {
     }
   }
 
+  onAlert() async {
+    // showDialog(
+    //   context: context,
+    //   builder: (context) => AlertPopup(
+    //     desc: '저장 할 수 없어요.\n최소한 ',
+    //     buttonText: buttonText,
+    //     height: height,
+    //     onTap: onTap,
+    //   ),
+    // );
+  }
+
   @override
   Widget build(BuildContext context) {
     String locale = context.locale.toString();
@@ -348,7 +360,7 @@ class _ContainerPageState extends State<ContainerPage> {
                   buttonColor: isSaveButton ? darkButtonColor : Colors.white,
                   verticalPadding: 12.5,
                   borderRadius: 7,
-                  onTap: isSaveButton ? onSave : () {},
+                  onTap: isSaveButton ? onSave : onAlert,
                 )
               ],
             ),
